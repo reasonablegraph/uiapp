@@ -1,0 +1,13 @@
+#page-title  {
+	display:none;
+	visibility: hidden;
+}
+
+div.breadcrumb {
+	display:none;
+}
+
+.page-archive-term #page-title {
+    display:block;
+    visibility:visible;    
+}

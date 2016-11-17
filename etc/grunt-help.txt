@@ -1,0 +1,61 @@
+available options:
+
+--------------------------------------------------
+-- main build
+--------------------------------------------------
+grunt make                  css, theme, commands
+grunt css                   archive css
+grunt theme                 drupal theme
+grunt commands              jsform javascript commands
+grunt bootstrap             create archive bootstrap.css
+
+grunt generate-storage-settings
+--------------------------------------------------
+-- form
+--------------------------------------------------
+
+grunt commands-list           display list of commands (alphabetical order)
+grunt commands-test           run src/test/commands-test.js
+grunt commands-deps           create src/test/commands_gen.json target/deps.dot
+
+grunt command-dump:[name]
+grunt command-show:[name:depth]
+grunt command-show-parents:[name:depth]
+grunt command-show-childs:[name:depth]
+grunt command-find:[name]
+
+grunt forms-list
+
+grunt form-dump:[name]
+grunt form-show:[name:depth]
+
+--------------------------------------------------
+-- ITEMS GPAPH
+--------------------------------------------------
+
+grunt graph-reset:[item_id]           exec rule engine full or with item_id
+grunt graph-reset-verbose:[item_id]
+
+grunt graph-show
+grunt graph-show-node:[id:depth]
+grunt graph-show-node-parents:[id:depth]
+grunt graph-show-node-childs:[id:depth]
+grunt graph-show-steps
+
+      --neighbourhood=true /false/item_id
+      --inferred=true /false
+--------------------------------------------------
+-- install
+--------------------------------------------------
+install:all                install all deps
+install:bootstrap          install bootstrap
+
+
+--------------------------------------------------
+-- misc
+--------------------------------------------------
+grunt dump-options
+dump-config
+dump-config-raw
+dump-global
+

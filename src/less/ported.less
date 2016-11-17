@@ -1,0 +1,272 @@
+/*** Search Page ****/
+.sfilters .viewbtns {
+	text-align:right;
+	padding:trbl(0,0,0,0, @hspace,@vspace);
+	margin:trbl(0,0,0,0, @hspace,@vspace);
+}
+.sfilters .viewbtns a {
+	font-size:1.3*@bfh;
+	color:@btn-link-color;
+	margin:trbl(0,1,0,0, @hspace,@vspace);
+}
+.sfilters .viewbtns a:hover {
+	color:@btn-link-hover-color;
+}
+.sfilters .viewbtns a:last-child {
+	margin:trbl(0,0,0,0, @hspace,@vspace);
+}
+
+a.dwlink {
+	font-size:2*@bfh;
+	color:@btn-link-color;
+}
+a.dwlink:hover {
+	color:@btn-link-hover-color;
+}
+
+.res-infobar {
+	background:@common-panel-back;
+	border: 1px solid @common-panel-border;
+	padding:trbl(0.5,1,0.5,2.5, @hspace,@vspace);
+}
+.res-subjects {
+	border:1px solid @common-panel-border;
+	border-top:none;
+	padding:trbl(0.5,1,0.5,1, @hspace,@vspace);
+}
+
+.res-items-cont {
+	margin-top:3*@hspace;
+}
+
+.res-subjects-label {
+	font-weight:bold
+}
+
+/*** Search Page Items - Non tabular view - Masonry Js ****/
+#thl_3 .item_thl {
+	width:110px;
+	height:auto;
+	max-height:200px;
+}
+
+#thl_4 .item_thl {
+	width:210px;
+	height:auto;
+	max-height:310px;
+}
+
+.item_thl {
+	padding:trbl(0,0,0,0, @hspace,@vspace);
+	margin:trbl(0,1,1,0, @hspace,@vspace);
+	overflow:hidden;
+}
+.item_thl:hover {
+}
+.item_thl img {
+	max-width:100%;
+	height:auto;
+}
+
+.item_thl a img {
+	padding:trbl(0,0,0,0, @hspace,@vspace);
+	margin:trbl(0,0,0,0, @hspace,@vspace);
+}
+
+
+/*** Item Page ***/
+.item-left {
+}
+
+.item-right {
+	text-align:center;
+}
+#iteminf {
+}
+
+#iteminf .basicinf {
+
+}
+
+#iteminf h2 {
+ 	font-size:3*@bfh;
+	line-height:2.5*@blh;
+	padding:trbl(0,0,0,0, @hspace,@vspace);
+	margin:trbl(0,0,1,0, @hspace,@vspace);
+}
+
+#iteminf .itemthumb img {
+	max-width:100%;
+	height:auto;
+}
+
+h3.pthumbstitle {
+ 	font-size:1.2*@bfh;
+	line-height:2.5*@blh;
+	padding:trbl(0,0,0,0, @hspace,@vspace);
+	margin:trbl(2,0,1,0, @hspace,@vspace);
+	border-bottom:1px solid @common-panel-border;
+}
+
+
+div.thumbsl1 img{
+	border:1px solid @common-panel-border;
+}
+
+
+div.thumbsl1 a{
+	outline: none;
+}
+
+a.authlink {
+  text-decoration: none;
+  color:@btn-link-color;
+}
+a.authlink:hover {
+	color:@btn-link-hover-color;
+}
+
+/*** Item Downloads ***/
+table#downloads tr th {
+	font-size:1.2*@bfh;
+	background:@common-tableheader-back;
+}
+
+a.item-dwlink {
+	font-size:2*@bfh;
+	color:@btn-link-color;
+}
+a.item-dwlink:hover {
+	color:@btn-link-hover-color;
+}
+
+/** Item Admin Bar **/
+#admin_area {
+	background:@common-panel-back;
+}
+
+#admin_area{
+	margin-left: 15px;
+	margin-right: 5px;
+}
+
+#admin_area > li > a {
+    border: 1px solid;
+    padding: 2px 8px;
+}
+
+#admin_area > li {
+    padding-right: 10px;
+}
+
+#admin_area {
+    padding-left: 0px;
+}
+
+
+.form-control {
+     border: 1px solid #cccccc;
+    }
+
+/*** Item Periodic Layout ***/
+
+
+div.thumbsl2 a {
+	position:relative;
+	width:120px;
+	height:180px;
+	overflow:hidden;
+	padding:trbl(0,0,0,0, @hspace,@vspace);
+	margin:trbl(0,1,0.5,0, @hspace,@vspace);
+}
+
+div.thumbsl2 a span {
+	display:inline-block;
+	position:absolute;
+	width:100%;
+	height:auto;
+
+	font-size:1.3*@bfh;
+	color:#fff;
+	background-color: rgba(0,0,0,0.7);
+
+	left:0;
+	bottom:0;
+
+	padding:trbl(0.2,0.2,0.2,0.2, @hspace,@vspace);
+	margin:trbl(0,0,0,0, @hspace,@vspace);
+}
+div.thumbsl2 a:hover span {
+	color:#000;
+	background-color: rgba(255,255,255,0.7);
+}
+
+#iteminf-periodic .itemthumb {}
+#iteminf-periodic .downinf {
+  margin: 0 auto;
+  padding: 10px;
+  width: 380px;
+  border:1px dashed #666;
+  background:#ccc;
+  text-align:center;
+}
+/*
+#iteminf-periodic {
+  padding:0 0 10px 0;
+}
+#pagesthumbs {padding: 5px 0;}
+
+#iteminf-periodic .basicinf {
+  float: left;
+  clear:right;
+  width: 920px;
+  margin-right: 10px;
+}
+
+#pagesthumbs a {
+  float:left;
+  clear: right;
+  margin-right: 12px;
+  text-decoration:none;
+  color: #005386;
+  text-align:center;
+  font-size:0.8em;
+        width:140px;
+        height:200px;
+        overflow:hidden;
+
+}
+div.thumbsl2 a {
+        float:left;
+        clear: right;
+        margin-right: 12px;
+        text-decoration:none;
+        color: #005386;
+        text-align:center;
+        font-size:0.8em;
+        width:140px;
+        height:230px;
+        overflow:hidden;
+
+}
+#pagesthumbs img {border:1px solid #999}
+#iteminf-periodic #pagesthumbs a {margin-right:8px}
+
+*/
+
+
+div.thumbsl1 a {
+        float:left;
+        clear: right;
+        margin-right: 12px;
+        text-decoration:none;
+        color: #005386;
+        text-align:center;
+        font-size:0.8em;
+        width:126px;
+        padding-bottom:20px;
+        overflow:hidden;
+
+}
+
+

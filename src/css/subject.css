@@ -1,0 +1,24 @@
+#members thead tr th 
+{
+	padding: 2px;
+	margin: 2px;	
+	border-style: none;
+}
+#members tbody tr td 
+{ 
+	border-style: none;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #ffffff;
+}
+
+
+.mimeico {
+	margin-top:3px;
+}
+
+.std1 {
+text-align: center;
+}
+
+

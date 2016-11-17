@@ -1,0 +1,13 @@
+div.arch-wrap div.front span.front_sc_label {
+	font-weight: bold;
+	padding-right: 8px;
+}
+
+div.arch-wrap div.dimensions span.front_sc_label {
+	font-weight: bold;
+	padding-right: 8px;
+}
+
+div.arch-wrap div.dimensions span.value {
+	padding-right: 8px;
+}

@@ -1,0 +1,51 @@
+
+
+div.itemfoto {
+		font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+
+div.itemfoto br{
+		clear: both;
+}
+
+#imagedet .ilabel1 {
+	float:left;
+	width: 98px;
+	background-color: #D0D0D0;
+}
+
+#imagedet .ilabel2 {
+	margin: 1px 1px;
+	padding-left:7px;
+ }
+
+#imagedet .ilabel {
+	white-space: nowrap;
+	font-size: 0.8 em;
+	font-weight:bold;
+	margin: 1px;
+ }
+
+#imagedet span.d1 {
+	font-size: 0.6 em;
+	margin: 1px;
+	padding-left:7px;
+}
+
+#imagedet span.d2  {
+	font-size: 0.6 em;
+	margin: 1px 1px;
+	padding-left:7px;
+}
+
+#imagedet p.d1 {
+	font-size: 0.6 em;
+	margin: 1px;
+	padding-left:7px;
+}
+
+#imagedet p.d2  {
+	font-size: 0.6 em;
+	margin: 1px 1px;
+	padding-left:7px;
+}

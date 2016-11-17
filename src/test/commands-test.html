@@ -1,0 +1,181 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="/tmp/step1_conf_gen.js"></script>
+<script type="text/javascript" src="/tmp/commands_gen.js"></script>
+<script type="text/javascript" src="commands-lib.js"></script>
+<script type="text/javascript" src="commands-deps.js"></script>
+<script>
+var p1 =document.URL.split('#')[1];
+
+for (var cmd_name in commands){
+
+  var cmd = commands[cmd_name];
+  var opts = cmd['opts'];
+  if (opts){
+    for (var opt_name in opts){
+      var opt = opts[opt_name];
+      if (jQuery.isFunction(opt)){
+        opts[opt_name] = opt.toString();
+      }
+    }
+  }
+}
+
+
+//////////////////////////////////////////////////////////
+//generate src/test/commands_gen.json
+//////////////////////////////////////////////////////////
+phantomTask('dump.commands', commands);
+
+</script>
+<script type="text/javascript" src="commands-test.js"></script>
+<script>
+
+function get_command_names(){
+  var command_names = [];
+  for (var cmd_name in commands){
+    command_names.push(cmd_name);
+  }
+  command_names.sort();
+  return command_names;
+}
+
+
+function find_command_by_option(search_string){
+  var rep = [];
+  for (var cmd_name in commands){
+    var cmd = commands[cmd_name];
+    var opts = cmd['opts'];
+    if (opts){
+      for (var key in opts){
+          if (key.indexOf(search_string) > -1){
+            //var r = key + ' : ' + opts[key] + ' | ' + cmd_name ;
+            var r = key + ' | ' + cmd_name ;
+            if (cmd['x-srcFile']){
+              r = cmd['x-srcFile'] + ' | ' + r;
+            }
+            rep[r] = true;
+          }
+      }
+    }
+  }
+  for (k in rep){
+    consoleLog(k);
+  }
+
+}
+
+
+function find_command_by_key(search_string){
+  var rep = [];
+  for (var cmd_name in commands){
+    var cmd = commands[cmd_name];
+    var opts = cmd['opts'];
+    if (opts && opts['key']){
+      var key = opts['key'];
+      if (jQuery.isPlainObject(key)){
+        for (var sk in key){
+          if (sk.indexOf(search_string) > -1){
+            var r = sk + ' | ' + cmd_name;
+            if (cmd['x-srcFile']){
+              r = cmd['x-srcFile'] + ' | ' + r;
+            }
+            rep[r] = true;
+          }
+        }
+      } else {
+        if (key.indexOf(search_string) > -1){
+          var r = key + ' | ' + cmd_name;
+          if (cmd['x-srcFile']){
+            r = cmd['x-srcFile'] + ' | ' + r;
+          }
+          rep[r] = true;
+        }
+      }
+    }
+
+  }
+  for (k in rep){
+    consoleLog(k);
+  }
+}
+
+function find_command_by_name(search_string){
+  var command_names = get_command_names();
+  for (i in command_names){
+    var cn = command_names[i];
+    if (cn.indexOf(search_string) > -1){
+      var cmd = commands[cn];
+      if (cmd['x-srcFile']){
+          cn = cmd['x-srcFile'] + ' | ' + cn;
+      }
+      consoleLog(cn);
+    }
+  }
+}
+
+if (p1){
+  consoleDump(p1);
+  if (p1 == 'deps'){
+    doDeps();
+  } else if (p1 == 'forms-list'){
+    //consoleDump(formSetups);
+    consoleLog("----------------------------------");
+    for (form_name in formSetups){
+      consoleLog(form_name);
+    }
+  } else if (p1 == 'commands-list') {
+    consoleLog("----------------------------------");
+    //## PRINT COMMAND NAMES IN ALPHABETICAL ORDER
+//    var command_names = get_command_names();
+//    for (i in command_names){
+//      consoleLog(command_names[i]);
+//    }
+  } else if (p1.indexOf('command-find=') == 0) {
+    var cmd_name = p1.split('command-find=')[1];
+    if (cmd_name){
+      consoleLog("FIND COMMAND: " + cmd_name);
+      consoleLog("----------------------------------");
+      find_command_by_key(cmd_name);
+      consoleLog("----------------------------------");
+      find_command_by_name(cmd_name);
+      consoleLog("----------------------------------");
+      find_command_by_option(cmd_name);
+      consoleLog("----------------------------------");
+    }
+  } else if (p1.indexOf('dump_command=') == 0){
+    var cmd_name = p1.split('dump_command=')[1];
+    if (cmd_name){
+      consoleLog("DUMP COMMAND: " + cmd_name);
+      consoleDump(commands[cmd_name]);
+    }
+  } else if (p1.indexOf('dump_form=') == 0){
+    var f_name = p1.split('dump_form=')[1];
+    if (f_name){
+      consoleLog("DUMP FORM: " + f_name);
+      consoleDump(formSetups[f_name]);
+    }
+  }else {
+    consoleLog("ERROR param");
+  }
+} else {
+  test1();
+}
+
+phantomTask('phantom.done');
+
+</script>
+</head>
+<body>
+
+<script>
+</script>
+
+
+
+
+</body>
+</html>

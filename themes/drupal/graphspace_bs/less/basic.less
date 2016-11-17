@@ -1,0 +1,117 @@
+@bfh:0rem;     //base-font-height
+@bfw:0rem;   //base-font-width
+@blh:0rem;   //base-line-height
+@vspace:0rem;  //basic vertical space
+@hspace:0rem;  //basic horizontal space
+@header-underline: #D3D7D9;
+
+html,body {font-size:14px;}
+
+h1.page-header {
+	font-size:3*@bfh;
+}
+
+.content h3 {
+	font-size:2*@bfh;
+}
+
+.block h2 {
+	font-size:2*@bfh;
+	line-height:2*@blh;
+	padding:trbl(0,1,1,1, @hspace,@vspace);
+	margin:trbl(1,1,1,0, @hspace,@vspace);
+}
+
+aside .block h2 {
+	font-size:2*@bfh;
+	border-bottom:1px solid @header-underline;
+	padding:trbl(0,1,0.5,1, @hspace,@vspace);
+	margin:trbl(1,1,1,0, @hspace,@vspace);
+
+}
+
+.node-teaser {
+	padding:trbl(0,1,0,1, @hspace,@vspace);
+	margin:trbl(1,1,2,1, @hspace,@vspace);
+	border-radius:6px;
+	border-bottom-right-radius:0;
+	-webkit-box-shadow: 0 8px 6px -6px @header-underline;
+	-moz-box-shadow: 0 8px 6px -6px @header-underline;
+	box-shadow: 0 8px 6px -6px @header-underline;
+}
+
+.node-sticky {
+	background: none repeat scroll 0% 0% rgba(0, 0, 0, 0.024);
+	border: 1px solid @header-underline;
+	padding:trbl(1,2,2,2, @hspace,@vspace);
+	margin:trbl(0,1,2,1, @hspace,@vspace);
+}
+
+.node-teaser h2 {
+	font-size:1.8*@bfh;
+	padding:trbl(0,0,1,0, @hspace,@vspace);
+	margin:trbl(0,0,1,0, @hspace,@vspace);
+}
+
+
+.node-teaser .submitted {
+	text-align:left;
+	font-size:1.3*@bfh;
+	padding:trbl(0,0,1,0, @hspace,@vspace);
+	margin:trbl(0,0,0,0, @hspace,@vspace);
+}
+.node-teaser .content {
+	padding:trbl(0,0,0,0, @hspace,@vspace);
+	margin:trbl(0,0,0,0, @hspace,@vspace);
+}
+
+.field-tags {
+	float:left;
+	padding:trbl(1,0,0,0, @hspace,@vspace);
+	margin:trbl(0,2,0,0, @hspace,@vspace);
+}
+
+.field-tags:before {
+	content: "";
+	position: relative;
+	top: 2px;
+	display: inline-block;
+	font-family: "Glyphicons Halflings";
+	font-style: normal;
+	font-weight: 400;
+	margin:trbl(1,0.1,1,0, @hspace,@vspace);
+}
+
+.node-teaser ul.links {
+	padding:trbl(0,2,0,2, @hspace,@vspace);
+	margin:0;
+	list-style:none;
+	float:right;
+	clear:both;
+}
+
+.node-teaser ul.links li {
+	padding:trbl(0,0,0.5,0, @hspace,@vspace);
+	margin:0;
+	list-style:none;
+	font-size:1.2*@bfh;
+}
+
+.staffbar > li > a {
+    border: 1px solid;
+    padding: 5px 10px;
+    color: @theme-primary-link-color;
+}
+
+.staffbar > li {
+    padding-right: 10px;
+}
+
+.navbar {
+    margin-bottom: 20px;
+    min-height: 0px;
+}
+
+
+
+

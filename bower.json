@@ -1,0 +1,27 @@
+{
+  "name": "graphspace",
+  "version": "0.0.0",
+  "authors": [],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.2.0",
+    "ui-autocomplete": "~0.5.7",
+    "jquery.dialog": "~0.2.0",
+    "jquery-ui": "~1.11.2",
+    "jquery-colorbox": "~1.5.14",
+    "tinymce": "~4.3.12",
+    "mustache": "~0.8.2",
+    "jquery-deferred-sequence": "~1.0.0",
+    "clipboard": "^1.5.10",
+    "trumbowyg": "^2.1.0"
+  },
+  "devDependencies": {}
+}
