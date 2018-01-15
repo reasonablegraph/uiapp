@@ -165,7 +165,6 @@ showModel : function(fieldModel,closeHandler) {
 		var c= 0;
 		for (i in data){
 			v = data[i];
-			//console.log(v);
 			var key = v.key();
 			if (!pl.chk(key) || key.indexOf('tmp') == 0){
 				continue;
@@ -203,6 +202,7 @@ showModel : function(fieldModel,closeHandler) {
 			var value = {i:v.id(), l:v.link(), v:vval, w:c, g:v.g, r:v.r, f:v.f, s:v.s,p:v.p, d:jdata,e:v['e']};
 
 			ph.val(JSON.stringify(value));
+			//console.log("APPEND: ",name, ph.val());
 			ph.appendTo(form);
 		}
 	}
@@ -274,11 +274,27 @@ ValidationUtil.isMonth =function(s) {
   if (s == null || s== ''){
       return true;
     }
+
+    //RANGE
+    var ok = s.search(/^[\d]+\/[\d]+$/) != -1;
+    if (ok){
+    	var res = s.split("/");
+    	for (i = 0; i < res.length; i++) {
+    		var m = parseInt(res[i]);
+    		if (m > 12 || m < 1){
+    			ok = false;
+    		}
+    	}
+    	return ok;
+    }
+
+    //ARI8MOS
     var ok = String(s).search(/^[\d]+$/) != -1;
     if (ok){
       var m = parseInt(s);
       return (m <= 12 && m >= 1);
     }
+
     return ok;
 };
 
@@ -286,6 +302,21 @@ ValidationUtil.isDay =function(s) {
     if (s == null || s== ''){
       return true;
     }
+
+    //RANGE
+    var ok = s.search(/^[\d]+\/[\d]+$/) != -1;
+    if (ok){
+    	var res = s.split("/");
+    	for (i = 0; i < res.length; i++) {
+    		var m = parseInt(res[i]);
+    		if (m > 31 || m < 1){
+    			ok = false;
+    		}
+    	}
+    	return ok;
+    }
+
+    //ARI8MOS
     var ok = String(s).search(/^[\d]+$/) != -1;
     if (ok){
       var m = parseInt(s);

@@ -1,0 +1,17 @@
+nodejs:
+
+curl -sL https://deb.nodesource.com/setup | sudo bash -
+curl -sL https://deb.nodesource.com/setup_dev | sudo bash -
+
+
+
+Regular expresion replace commands:
+
+ ^(\s*)commands\.
+ $1cmdCreate('
+
+ (cmdCreate\('\w*)\s*=\s*\{
+ $1',{
+
+ ^\s*};
+ });

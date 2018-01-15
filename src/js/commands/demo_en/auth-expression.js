@@ -69,7 +69,7 @@ cmdCreate('header_sect_expres_basic',{
       label:key_labels['ea:expres:Header_Basic'],
       class:'sect_expres_level_2',
       level:2,
-      add_button_advanced:true, 
+      add_button_advanced:true,
       add_button_advanced_label:key_labels['advanced_fields'],
     }
 });
@@ -281,8 +281,8 @@ cmdCreate('expres_content',{
 
 /****************************************************/
 /*****************  expresDates *********************/
-/****************************************************/		
-			
+/****************************************************/
+
 			cmdCreate('expres_date',{
 			    action : 'setupField',
 			    opts : jQuery.extend({},opts_text,{
@@ -315,8 +315,8 @@ cmdCreate('expres_content',{
 
 /****************************************************/
 /*****************  expresVersion *******************/
-/****************************************************/	
-			
+/****************************************************/
+
 			cmdCreate('expres_version',{
 			    action : 'setupField',
 			    opts : jQuery.extend({},opts_multy_text,{
@@ -333,7 +333,7 @@ cmdCreate('expres_content',{
 /****************************************************/
 /***************  expresFrequency *******************/
 /****************************************************/
-		 
+
 			cmdCreate('expres_frequency',{
 									action : 'setupField',
 									opts : jQuery.extend({},opts_multy_text,{
@@ -349,12 +349,12 @@ cmdCreate('expres_content',{
 										repeat_style: 'ordered',
 									})
 });
-		 
+
 
 /****************************************************/
 /*************  expresNotatedMusic ******************/
-/****************************************************/	
-													
+/****************************************************/
+
 			cmdCreate('expres_note_music',{
 									 action : 'setupField',
 									 opts : jQuery.extend({},opts_text,{
@@ -363,11 +363,11 @@ cmdCreate('expres_content',{
 											'show_help' : true,
 										})
 });
-						 
+
 /****************************************************/
 /************  expresComputerCharacter **************/
-/****************************************************/	
-																
+/****************************************************/
+
 		 cmdCreate('expres_computer_character',{
 										action : 'setupField',
 										opts : jQuery.extend({},opts_text,{
@@ -376,11 +376,11 @@ cmdCreate('expres_content',{
 												'show_help' : true,
 									})
 });
-									 
+
 /****************************************************/
 /*************  expresPlayingTime *******************/
-/****************************************************/	
-																			
+/****************************************************/
+
 		 cmdCreate('expres_playing_time',{
 										action : 'setupField',
 										opts : jQuery.extend({},opts_multy_text,{
@@ -391,7 +391,7 @@ cmdCreate('expres_content',{
 											})
 });
 
-		 
+
 /****************************************************/
 /**************  expresSymbology ********************/
 /****************************************************/
@@ -407,8 +407,8 @@ cmdCreate('expres_content',{
 		      'select_values':symbology_tactile_material_map,
 		    })
 });
- 
-		
+
+
 /****************************************************/
 /**************  expresScale ************************/
 /****************************************************/
@@ -421,42 +421,113 @@ cmdCreate('expres_content',{
 					'show_help' : true,
 					})
 });
-		
-		 
+
+
 
 
 /****************************************************/
 /*************  expresNoteContent *******************/
-/****************************************************/	
-							
-				cmdCreate('expres_note_content',{
-							 action : 'setupField',
-							 opts : jQuery.extend({},opts_multy_text,{
-							    'key' : 'ea:expres:Note_Content',
-							    'label' : key_labels['ea:expres:Note_Content'],
-							    'show_help' : true,
-							    repeat_style : 'ordered',
-							 })
-});
-				
+/****************************************************/
+
+//						cmdCreate('expres_note_content',{
+//									 action : 'setupField',
+//									 opts : jQuery.extend({},opts_multy_text,{
+//									    'key' : 'ea:expres:Note_Content',
+//									    'label' : key_labels['ea:expres:Note_Content'],
+//									    'show_help' : true,
+//									    repeat_style : 'ordered',
+//									 })
+		//});
+
+		cmdCreate('expres_note_content',{
+		  action : 'setupField',
+		  opts : jQuery.extend({},opts_multy_text,{
+		    'key' : 'ea:expres:Note_Content',
+		    'label':key_labels['ea:expres:Note_Content'],
+		    'repeat_style' : 'ordered',
+		    'strip_html': true,
+		    extend:true,
+		    extend_command: 'expres_note_content_extend',
+		    extend_punctuation:'{{{v}}}\
+		{{#ea:url:related}}{{#first}}. - Link:{{/first}} {{{v}}}{{^last}},{{/last}}{{/ea:url:related}}',
+		  	})
+		});
+
+
+		cmdCreate('expres_note_content_extend',{
+		  action: 'extend',
+		  opts:{
+		    label:key_labels['ea:expres:Note_Content'],
+		    primary:'expres_note_content_simple',
+		    commands:['expres_note_content_simple','url_rel',],
+		  }
+		});
+
+
+		cmdCreate('expres_note_content_simple',{
+		  action : 'setupField',
+		  opts : jQuery.extend({},opts_textarea,{
+		    'key' : 'ea:expres:Note_Content',
+		    'label':key_labels['ea:expres:Note_Content'],
+		    'default_edit_type': 'html'
+		  })
+		});
+
+
+
 /****************************************************/
 /*************  expresNoteSummary *******************/
-/****************************************************/	
-										
-			 cmdCreate('expres_note_summary',{
-							 action : 'setupField',
-							 opts : jQuery.extend({},opts_multy_text,{
-									'key' : 'ea:expres:Note_Summary',
-									'label' : key_labels['ea:expres:Note_Summary'],
-									'show_help' : true,
-									repeat_style : 'ordered',
-								})
-});
-							
+/****************************************************/
+
+//					 cmdCreate('expres_note_summary',{
+//									 action : 'setupField',
+//									 opts : jQuery.extend({},opts_multy_text,{
+//											'key' : 'ea:expres:Note_Summary',
+//											'label' : key_labels['ea:expres:Note_Summary'],
+//											'show_help' : true,
+//											repeat_style : 'ordered',
+//										})
+		//});
+
+		cmdCreate('expres_note_summary',{
+		  action : 'setupField',
+		  opts : jQuery.extend({},opts_multy_text,{
+		    'key' : 'ea:expres:Note_Summary',
+		    'label':key_labels['ea:expres:Note_Summary'],
+		    'repeat_style' : 'ordered',
+		    'strip_html': true,
+		    extend:true,
+		    extend_command: 'expres_note_summary_extend',
+		    extend_punctuation:'{{{v}}}\
+		{{#ea:url:related}}{{#first}}. - Link:{{/first}} {{{v}}}{{^last}},{{/last}}{{/ea:url:related}}',
+		  	})
+		});
+
+
+		cmdCreate('expres_note_summary_extend',{
+		  action: 'extend',
+		  opts:{
+		    label:key_labels['ea:expres:Note_Summary'],
+		    primary:'expres_note_summary_simple',
+		    commands:['expres_note_summary_simple','url_rel',],
+		  }
+		});
+
+
+		cmdCreate('expres_note_summary_simple',{
+		  action : 'setupField',
+		  opts : jQuery.extend({},opts_textarea,{
+		    'key' : 'ea:expres:Note_Summary',
+		    'label':key_labels['ea:expres:Note_Summary'],
+		    'default_edit_type': 'html'
+		  })
+		});
+
+
 /****************************************************/
 /*************  expresNoteCitation ******************/
 /****************************************************/
-				
+
 			 cmdCreate('expres_note_citation',{
 						action : 'setupField',
 						opts : jQuery.extend({},opts_multy_text,{
@@ -484,15 +555,15 @@ cmdCreate('expres_content',{
 					      'key' : 'ea:expres:Note_Citation_Sourse',
 					      'label':key_labels['ea:expres:Note_Citation_Sourse'],
 					    })
-});	
-					
+});
+
 				cmdCreate('expres_note_citation_url',{
 				    action : 'setupField',
-				    opts : jQuery.extend({},commands.url_rel.opts,{ 
+				    opts : jQuery.extend({},commands.url_rel.opts,{
 				    	'repeat_style' : 'ordered',
 				      'label':key_labels['ea:expres:Note_Citation_Url'],
 				    })
-});	
+});
 
 
 /*************************************************/
@@ -500,19 +571,19 @@ cmdCreate('expres_content',{
 /*************************************************/
 				cmdCreate('expres_url',{
 				    action : 'setupField',
-				    opts : jQuery.extend({},commands.url_rel.opts,{ 
+				    opts : jQuery.extend({},commands.url_rel.opts,{
 				    	'repeat_style' : 'ordered',
 				    	'key' : 'ea:expres:Url',
 				      'label':key_labels['ea:expres:Url'],
 				    })
-});	
-				
-				
-				
-				
-				
-				
-				
+});
+
+
+
+
+
+
+
 
 cmdCreate('header_sect_expresion_works',{
 	"action": "addSection",
@@ -538,7 +609,7 @@ cmdCreate('header_sect_expresion_manifs',{
 cmdCreate.relation({
 	'cmd_name' : 'works_of_expression',
 	'key' : 'ea:expressionOf:',
-	'label' : key_labels['ea:manif:Work'], 
+	'label' : key_labels['ea:manif:Work'],
 	'search_url' : '/prepo/ws/search-work',
 	root_options : {
 		"add_button" : true,
@@ -551,15 +622,15 @@ cmdCreate.relation({
 	//remote_view_type: 'generic',
 	//remote_view_display_fields : [],
 	//remote_view_exec_cmds: [],
-	
-// SINGLE OBJECT TYPE VALUES	
+
+// SINGLE OBJECT TYPE VALUES
 //	'object_type':'auth-work',
 //	'extend_primary_key':'dc:title:',
 //	'extend_primary_label':'place term',
 //	'new_button_label' : 'newX',
 //	'extend_commands' : work_extend_commands,
-	
-//MULTIPLE OBJECT TYPE VALUES	
+
+//MULTIPLE OBJECT TYPE VALUES
 	'object_type' : {
 		'auth-work' : {
 			'extend_primary_key' : 'dc:title:',
@@ -568,7 +639,7 @@ cmdCreate.relation({
 			'extend_commands' : f_auth_work_extend,
 		},
 	},
-	
+
 });
 
 

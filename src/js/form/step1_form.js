@@ -1,6 +1,6 @@
 function setupZ3950(fc){
 
-  jQuery('#z3950').click(function(e){
+  jQuery('.z3950').click(function(e){
     console.log("Z3950");
 
     var getKey = function(){
@@ -10,7 +10,7 @@ function setupZ3950(fc){
         my: "center top",
         at: "center top"
     };
-    fc._showExtend('z3950','z3950', null, pos,null,getKey);
+    fc._showExtend('z39.50','z3950', null, pos,null,getKey);
 
   });
 }
@@ -129,6 +129,7 @@ function setupBiblionet(fc){
 
 
 function step1(new_record, object_types,data){
+
 	//console.log("STEP1",JSON.stringify(object_types));
   //console.log("STEP1",data);
 
@@ -183,6 +184,8 @@ function step1(new_record, object_types,data){
 
 
 
+
+
 //################# JS Worker ########################//
   var w;
 
@@ -229,14 +232,27 @@ function step1(new_record, object_types,data){
 //	commands.contributor_keys = Object.keys(contributors_printed);
 //	console.log("XXX",commands.author_type_map);
 
+
   //FIXME: COMMENT THIS
   //console.log(data);
   var fc = new FormControler(jQuery('#step1f'),data,commands,key_labels);
-  fc.setupForm(formSetup);
-  window.fc = fc;
+
+  form_type = fc.getFieldModels('ea:form-type:');
+	if ( form_type.length >= 1 && form_type[0].value()!= null){
+		if (formSetups[form_type[0].value()] !== undefined ){
+			fc.setupForm(formSetups[form_type[0].value()]);
+		}else{
+			fc.setupForm(formSetup);
+		}
+	}else{
+		fc.setupForm(formSetup);
+	}
+
+	window.fc = fc;
 
   //console.log( "You are running jQuery version: " + jQuery.fn.jquery );
   //test1();
+
 }
 
 
@@ -314,7 +330,7 @@ function cSubmitHandler(value){
 
 //     jQuery.unblockUI();
 
-
+    console.log("SAVE FINALIZE SUBMIT ");
     var button =  jQuery(this).attr("disabled", "disabled");
     e.preventDefault();
     var msgContext = fc.newMessageContext();
@@ -342,7 +358,7 @@ function cSubmitHandler(value){
 
     fc.blockUI();
 
-    var jobs = [];
+    var s1_jobs = [];
 
     //console.log("subitems_keys: ",fc.subitems_keys);
 //	  fc.subitems_keys['ea:subj:']=null;
@@ -352,19 +368,22 @@ function cSubmitHandler(value){
     for (var j in subitems_keys){
       //var kk = subitem_keys[j];
       var smodels = fc.getFieldModels(j, null);
-      for (i in smodels){
-        var s = smodels[i];
-        //console.log("PROMISE_PUSH:",s);
-        jobs = jobs.concat(fc.remoteCreateSubItemJobs(s,{
-          'convert_root_to_title':true,
-          'set_refitem_to_root':true,
-        }));
+      for (i in smodels) {
+	      var s = smodels[i];
+	      var value = s.value();
+	      if (value != null) {
+		      console.log("STEP1 PROMISE_PUSH:", s.key(), s.value());
+		      s1_jobs = s1_jobs.concat(fc.remoteCreateSubItemJobs(s, {
+			      'convert_root_to_title': true,
+			      'set_refitem_to_root': true,
+		      }));
+	      }
       }
     }
 
-
-    jobs.push(function(){
-    	console.log("FINAL");
+	  s1_jobs.push(function(){
+	    var deferred = jQuery.Deferred();
+    	//console.log("step1 final job");
       //fc.consoleDump();
       var form = jQuery('#forms1')[0];
       var data = fc.ndata;
@@ -372,22 +391,25 @@ function cSubmitHandler(value){
       var bv = button.val();
       var ph = jQuery('<input type="hidden">').attr('name',bv).val(bv);
       ph.appendTo(form);
+      console.log('step1_form submit');
       form.submit();
-
-      //fc.unblockUI();
+		  deferred.resolve("OK");
+	    return deferred;
     });
 
-  	sequence = jQuery.Deferred.Sequence( jobs );
+    var context={};
+    var jc= 0;
+	  var sequence = jQuery.Deferred.Sequence( s1_jobs );
   	sequence.reduce(function( fn ) {
   		//console.log("REDUCE1",fn);
   		if (fn){
+			  jc+=1;
+			  console.log("step1 form EXECUTE JOB: " + jc);
   			//console.log("REDUCE2",fn);
-  			return jQuery.when(fn());
+  			return jQuery.when(fn(context));
   		}
   	});
-
-
-
+    //console.log("#STEP1 FIN");
 
 //    jQuery.when.apply(jQuery, promises).then(function(){
 //      console.log("FINAL");
@@ -482,12 +504,20 @@ jQuery( document ).ready(function() {
 
   });
 
-  var btn = jQuery('#b_tree');
+  var btn = jQuery('.b_tree');
   btn.click(function(e){
     e.preventDefault();
     fc.showModel();
     fc.validate();
 
+  });
+
+
+  var cls_btn = jQuery('.btn-close');
+  cls_btn.click(function(e){
+   e.preventDefault();
+//   location.replace(cls_btn.val());
+   closeForm();
   });
 
 

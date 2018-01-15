@@ -1,0 +1,54 @@
+{
+
+ "validation-version":"1",
+
+ "generated": "2017-03-05T22:24:09.878813+00:00",
+
+"vertices": {
+ "EXPRESSION1":{"id" : 8888, "label" : "Necronomicon METAFRASI", "title" : "Necronomicon METAFRASI", "obj_type" : "auth-expression", "jdata" : {"neighbourhood":{"def":[8887],"item":[8887]},"nMethod":"procExpres","opac1":{"id":8888,"title":"Necronomicon METAFRASI","obj_type":"auth-expression"},"opac2":{"Title_punc":"Necronomicon METAFRASI"},"label":"Necronomicon METAFRASI","title":"Necronomicon METAFRASI","solr_data":{"id":"8888","object_type":"auth-expression","record_type":"work","title":"Necronomicon METAFRASI","label":"Necronomicon METAFRASI","secondaryTitles":["Νεκρονομικον","Νεκρονομικον","unexisted book"],"num_of_manifestations":1,"create_dt":{"date":"2017-03-05 22:24:08.000000","timezone_type":2,"timezone":"Z"}}}},
+ "MANIFESTATION1":{"id" : 8887, "label" : "Νεκρονομικον : unexisted book - MM.", "title" : "Νεκρονομικον", "obj_type" : "auth-manifestation", "jdata" : {"neighbourhood":{"def":[8888],"item":[8888]},"nMethod":"procManif","opac1":{"id":8887,"publication":"MM","items":[],"authors":[],"citation":"(MM). Νεκρονομικον: unexisted book.","lang":[],"title":"Νεκρονομικον","obj_type":"auth-manifestation"},"opac2":{"Title_punc":"Νεκρονομικον : unexisted book - MM."},"label":"Νεκρονομικον : unexisted book - MM.","title":"Νεκρονομικον","solr_data":{"id":"MANIF:8887","object_type":"auth-manifestation","record_type":"manifestation","title":"Νεκρονομικον","label":"Νεκρονομικον : unexisted book - MM.","publication_types":["Βιβλίο έντυπο"],"create_dt":{"date":"2017-03-05 22:24:07.000000","timezone_type":2,"timezone":"Z"}}}}
+
+},
+"relations": {
+ "r1":{"from" : "EXPRESSION1", "to" : "MANIFESTATION1", "element" : "ea:workOf:", "level" : 0, "link" : null, "inferred" : false, "rel" : null, "text_value" : "Νεκρονομικον : unexisted book - MM.", "parent_element" : null, "parent_value" : null},
+ "r2":{"from" : "MANIFESTATION1", "to" : "EXPRESSION1", "element" : "ea:work:", "level" : 0, "link" : null, "inferred" : true, "rel" : 2, "text_value" : "Necronomicon METAFRASI", "parent_element" : null, "parent_value" : null}
+
+},
+"properties": {
+ "a1":{"from_key" : "EXPRESSION1", "element" : "ea:obj-type:", "text_value" : "auth-expression", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 1, "link" : null, "level" : 0, "data" : null},
+ "a2":{"from_key" : "EXPRESSION1", "element" : "ea:status:", "text_value" : "finish", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 2, "link" : null, "level" : 0, "data" : {"prps":{"selected_value":"finish"}}},
+ "a3":{"from_key" : "EXPRESSION1", "element" : "dc:title:", "text_value" : "Necronomicon METAFRASI", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 4, "link" : null, "level" : 0, "data" : null},
+ "a4":{"from_key" : "EXPRESSION1", "element" : "ea:expres:Content", "text_value" : "expresContentTypeTable_txt", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 5, "link" : null, "level" : 0, "data" : {"prps":{"selected_value":"Κείμενο (Text)"}}},
+ "a5":{"from_key" : "EXPRESSION1", "element" : "ea:expres:Language", "text_value" : "undefined", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 6, "link" : null, "level" : 0, "data" : {"prps":{"selected_value":"Μη προσδιορισμένη"}}},
+ "a6":{"from_key" : "EXPRESSION1", "element" : "ea:expres:Symbology", "text_value" : "expresSymbologyTable_b", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 16, "link" : null, "level" : 0, "data" : {"prps":{"selected_value":"Braille"}}},
+ "a7":{"from_key" : "EXPRESSION1", "element" : "ea:workOf:", "text_value" : "Νεκρονομικον : unexisted book - MM.", "inferred" : false, "ref_key" : "MANIFESTATION1", "relation" : null, "lid" : 28, "link" : null, "level" : 0, "data" : {"data":{"sub-root":true,"rel_type":"locked","create_subitem":true,"ot":"auth-manifestation","org_value":"\u039d\u03b5\u03ba\u03c1\u03bf\u03bd\u03bf\u03bc\u03b9\u03ba\u03bf\u03bd","ref_label":"\u039d\u03b5\u03ba\u03c1\u03bf\u03bd\u03bf\u03bc\u03b9\u03ba\u03bf\u03bd : unexisted book - MM.","ref_ot":"auth-manifestation"}}},
+ "a8":{"from_key" : "EXPRESSION1", "element" : "ea:label:", "text_value" : "empty", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 61, "link" : null, "level" : 0, "data" : null},
+ "a9":{"from_key" : "EXPRESSION1", "element" : "ea:test:key1", "text_value" : "EXPRESSION1", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 62, "link" : null, "level" : 0, "data" : null},
+ "a10":{"from_key" : "EXPRESSION1", "element" : "dc:date:accessioned", "text_value" : "2017-03-05T22:24:08Z", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : null, "link" : null, "level" : 0, "data" : null},
+ "a11":{"from_key" : "EXPRESSION1", "element" : "dc:date:available", "text_value" : "2017-03-05T22:24:08Z", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : null, "link" : null, "level" : 0, "data" : null},
+ "a12":{"from_key" : "EXPRESSION1", "element" : "dc:date:issued", "text_value" : "2017-03-05", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : null, "link" : null, "level" : 0, "data" : null},
+ "a13":{"from_key" : "EXPRESSION1", "element" : "dc:description:provenance", "text_value" : "Submitted by admin on 2017-03-05T22:24:08Z (UTC)", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : null, "link" : null, "level" : 0, "data" : null},
+ "a14":{"from_key" : "EXPRESSION1", "element" : "dc:identifier:uri", "text_value" : "http://laravel.local/archive/item/8888", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : null, "link" : null, "level" : 0, "data" : null},
+ "a15":{"from_key" : "EXPRESSION1", "element" : "ea:identifier:id", "text_value" : "8888", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : null, "link" : null, "level" : 0, "data" : null},
+ "a16":{"from_key" : "MANIFESTATION1", "element" : "ea:manif:Type", "text_value" : "BOOK/M", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 29, "link" : null, "level" : 0, "data" : {"prps":{"selected_value":"Βιβλίο έντυπο"}}},
+ "a17":{"from_key" : "MANIFESTATION1", "element" : "ea:manif:Title_Remainder", "text_value" : "unexisted book", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 31, "link" : null, "level" : 0, "data" : null},
+ "a18":{"from_key" : "MANIFESTATION1", "element" : "ea:manif:Publication", "text_value" : "[object Object]", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 36, "link" : null, "level" : 1, "data" : {"prps":{"pnctn":" [object Object] "}}},
+ "a19":{"from_key" : "MANIFESTATION1", "element" : "ea:manif:Media_Type", "text_value" : "undefined", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 41, "link" : null, "level" : 0, "data" : {"prps":{"selected_value":"Απροσδιόριστο (Unspecified)"}}},
+ "a20":{"from_key" : "MANIFESTATION1", "element" : "ea:manif:Carrier_Type", "text_value" : "undefined", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 42, "link" : null, "level" : 0, "data" : {"prps":{"selected_value":"Μη προσδιορισμένο"}}},
+ "a21":{"from_key" : "MANIFESTATION1", "element" : "ea:manif:Country_Code", "text_value" : "undefined", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 45, "link" : null, "level" : 0, "data" : {"prps":{"selected_value":"Μη προσδιορισμένη"}}},
+ "a22":{"from_key" : "MANIFESTATION1", "element" : "ea:status:", "text_value" : "finish", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 58, "link" : null, "level" : 0, "data" : null},
+ "a23":{"from_key" : "MANIFESTATION1", "element" : "ea:obj-type:", "text_value" : "auth-manifestation", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 59, "link" : null, "level" : 0, "data" : null},
+ "a24":{"from_key" : "MANIFESTATION1", "element" : "ea:label:", "text_value" : "empty", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 60, "link" : null, "level" : 0, "data" : null},
+ "a25":{"from_key" : "MANIFESTATION1", "element" : "ea:test:key1", "text_value" : "MANIFESTATION1", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 63, "link" : null, "level" : 0, "data" : null},
+ "a26":{"from_key" : "MANIFESTATION1", "element" : "ea:manif:Publication_Date", "text_value" : "2000", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 64, "link" : 36, "level" : 2, "data" : {"json":{"y":2000,"d":null,"m":null,"t":"MM","prsd":"p","z":"date"}}},
+ "a27":{"from_key" : "MANIFESTATION1", "element" : "dc:title:", "text_value" : "Νεκρονομικον", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 65, "link" : null, "level" : 0, "data" : null},
+ "a28":{"from_key" : "MANIFESTATION1", "element" : "dc:date:accessioned", "text_value" : "2017-03-05T22:24:07Z", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : null, "link" : null, "level" : 0, "data" : null},
+ "a29":{"from_key" : "MANIFESTATION1", "element" : "dc:date:available", "text_value" : "2017-03-05T22:24:07Z", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : null, "link" : null, "level" : 0, "data" : null},
+ "a30":{"from_key" : "MANIFESTATION1", "element" : "dc:date:issued", "text_value" : "2017-03-05", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : null, "link" : null, "level" : 0, "data" : null},
+ "a31":{"from_key" : "MANIFESTATION1", "element" : "dc:description:provenance", "text_value" : "Submitted by admin on 2017-03-05T22:24:07Z (UTC)", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : null, "link" : null, "level" : 0, "data" : null},
+ "a32":{"from_key" : "MANIFESTATION1", "element" : "dc:identifier:uri", "text_value" : "http://laravel.local/archive/item/8887", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : null, "link" : null, "level" : 0, "data" : null},
+ "a33":{"from_key" : "MANIFESTATION1", "element" : "ea:identifier:id", "text_value" : "8887", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : null, "link" : null, "level" : 0, "data" : null},
+ "a34":{"from_key" : "MANIFESTATION1", "element" : "ea:work:", "text_value" : "Necronomicon METAFRASI", "inferred" : true, "ref_key" : "EXPRESSION1", "relation" : 2, "lid" : null, "link" : null, "level" : 0, "data" : {"data":{"ref_label":"Necronomicon METAFRASI"}}}
+
+}
+}

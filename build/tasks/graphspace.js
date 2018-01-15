@@ -16,6 +16,8 @@ module.exports = function(grunt) {
 
 	grunt.registerTask('_generate-storage-settings', '', function() {
 		var files =[
+//		            'src/js/conf/amelib/config_storage.js',
+//		            'src/js/conf/amelib/config_storage_relations.js'
 									'target/config_storage_php_gen.js'
 		            ];
 
@@ -82,22 +84,36 @@ module.exports = function(grunt) {
 		return sh.exec(cmd);
 	}
 
-	var make_item_graph = function(inferred_flag,neighbourhood_flag){
+	var make_item_graph = function(inferred_flag,neighbourhood_flag,only_test_nodes_flag){
 		neighbourhood_flag =  (neighbourhood_flag !== undefined) ? neighbourhood_flag : false;
 		inferred_flag = (inferred_flag !== undefined) ? inferred_flag : false;
+		only_test_nodes_flag = (only_test_nodes_flag !== undefined) ? only_test_nodes_flag : false;
+
 		var sh = require('shelljs');
 		sh.mkdir('-p', 'target/tmp');
-		var inferred_flag_graph = inferred_flag ? 1 : 0;
-		var neighbourhood_flag_graph = neighbourhood_flag
-		var graph= 'target/tmp/item-graph.dot';
-		var exec_context = {
-				HOST_LARAVEL:grunt.config.get('options.HOST_LARAVEL'),
-				GRAPH:graph,
-				INFERRED_FLAG:inferred_flag_graph,
-				NEIGHBOURHOOD_FLAG:neighbourhood_flag_graph,
-		};
 
-		sh_exec('curl -v "http://{{HOST_LARAVEL}}/prepo/graphviz?inferred={{INFERRED_FLAG}}&neighbourhood={{NEIGHBOURHOOD_FLAG}}" > {{GRAPH}}',exec_context);
+		// console.log('neighbourhood:' + neighbourhood_flag + '  :::: ' + (neighbourhood_flag ?  'TRUE': 'FALSE'));
+		// console.log('inferred     :' + inferred_flag + '  :::: ' + (inferred_flag ?  'TRUE': 'FALSE'));
+		// console.log('only_test_nodes:' + only_test_nodes_flag + '  :::: ' + (only_test_nodes_flag ?  'TRUE': 'FALSE'));
+
+		// var inferred_flag_graph = inferred_flag ? 1 : 0;
+		// var neighbourhood_flag_graph = neighbourhood_flag
+		// var graph= 'target/tmp/item-graph.dot';
+		// var exec_context = {
+		// 		HOST_LARAVEL:grunt.config.get('options.HOST_LARAVEL'),
+		// 		GRAPH:graph,
+		// 		INFERRED_FLAG:inferred_flag_graph,
+		// 		NEIGHBOURHOOD_FLAG:neighbourhood_flag_graph,
+		// };
+		//sh_exec('curl -v "http://{{HOST_LARAVEL}}/prepo/graphviz?inferred={{INFERRED_FLAG}}&neighbourhood={{NEIGHBOURHOOD_FLAG}}" > {{GRAPH}}',exec_context);
+
+		var graph= 'target/tmp/item-graph.dot';
+		sh_exec('/laravel_artisan  graph:dot --neighbourhood={{neighbourhood}}  --inferred={{inferred}} --onlytestnodes={{only_test_nodes}}  > {{GRAPH}}',{
+			'GRAPH':graph,
+			'neighbourhood':neighbourhood_flag,
+			'inferred':inferred_flag,
+			'only_test_nodes':only_test_nodes_flag,
+		});
 		return graph;
 
 	};
@@ -163,7 +179,8 @@ module.exports = function(grunt) {
 	grunt.registerTask('graph-create-png', '', function() {
 		var neighbourhood_flag = grunt.option('neighbourhood');
 		var inf_flag = grunt.option('inferred');
-		make_item_graph(inf_flag,neighbourhood_flag);
+		var only_test_nodes = grunt.option('onlytestnodes');
+		make_item_graph(inf_flag,neighbourhood_flag,only_test_nodes);
 		sh_exec('dot -Tpng  -o target/tmp/item-graph.png target/tmp/item-graph.dot');
 		sh_exec('cp target/tmp/item-graph.png /tmp/');
 	});
@@ -171,7 +188,8 @@ module.exports = function(grunt) {
 	grunt.registerTask('graph-show', '', function() {
 		var neighbourhood_flag = grunt.option('neighbourhood');
 		var inf_flag = grunt.option('inferred');
-		make_item_graph(inf_flag,neighbourhood_flag);
+		var only_test_nodes = grunt.option('onlytestnodes');
+		make_item_graph(inf_flag,neighbourhood_flag,only_test_nodes);
 		sh_exec('dot -Tpng  -o target/tmp/item-graph.png target/tmp/item-graph.dot');
 		sh_exec('eog target/tmp/item-graph.png');
 	});
@@ -274,7 +292,50 @@ module.exports = function(grunt) {
 			console.log(JSON.stringify(grunt.config.get('options'), undefined, 2));
 	});
 
-	 grunt.registerTask('dump-config', 'dump-config', function() {
+	grunt.registerTask('dump-arc', '', function() {
+		console.log('------------------------------------------------');
+		console.log(JSON.stringify(grunt.config.get('options.arc'), undefined, 2));
+		console.log('------------------------------------------------');
+	});
+
+	grunt.registerTask('dump-arc_solr', '', function() {
+		console.log('------------------------------------------------');
+		var arc_rules = grunt.config.get('options.arc');
+		var k, v, k1,v1;
+		for (k in arc_rules){
+			v = arc_rules[k];
+			if (k.includes('SOLR')){
+				if (k == 'SOLR_ENDPOINTS'){
+					console.log(k, ':', JSON.stringify(v,undefined,2));
+				} else {
+					console.log(k, ':', JSON.stringify(v));
+				}
+			}
+		}
+		console.log('------------------------------------------------');
+	});
+
+	grunt.registerTask('dump-arc_rules', '', function() {
+		console.log('------------------------------------------------');
+		var arc_rules = grunt.config.get('options.arc_rules');
+		var k, v, k1,v1;
+		for (k in arc_rules){
+			v = arc_rules[k];
+			if (k == 'DEFAULT_RULES' || k == 'DEFAULT_ITEM_RULES'){
+				console.log("");
+				console.log(k, ':');
+				for (k1 in v){
+					v1 = v[k1];
+					console.log(' ⤷',k1, ':', JSON.stringify(v1));
+				}
+			} else {
+				console.log(k, ':', JSON.stringify(v));
+			}
+		}
+		console.log('------------------------------------------------');
+	});
+
+	grunt.registerTask('dump-config', 'dump-config', function() {
 	    console.log('------------------------------------------------');
 	    console.log(JSON.stringify(grunt.config.get(), undefined, 2));
 	    console.log('------------------------------------------------');
@@ -308,11 +369,17 @@ module.exports = function(grunt) {
 	var copyCommandsToTmp = function(){
 		var dir_asets = grunt.config.get('options.dir.assets');
 		var base_path = dir_asets + '/js/form/';
+		var base_path2 = dir_asets + '/js/';
 		var file;
-		file = 'step1_conf_gen.js';
-		grunt.file.copy(base_path + file,'/tmp/' +file);
-		file = 'commands_gen.js';
-		grunt.file.copy(base_path + file,'/tmp/' +file);
+		///commands_gen.js  form_controler_gen.js	step1_conf_gen.js  step1_form_gen.js  worker.js
+
+		file = 'step1_conf_gen.js'; grunt.file.copy(base_path + file,'/tmp/' +file);
+		file = 'commands_gen.js'; grunt.file.copy(base_path + file,'/tmp/' +file);
+		file = 'form_controler_gen.js'; grunt.file.copy(base_path + file,'/tmp/' +file);
+		file = 'putil.js';  grunt.file.copy(base_path2 + file,'/tmp/' +file);
+		grunt.file.copy('/data/www/assets/vendor/jquery-deferred-sequence/jquery.deferred.sequence.js','/tmp/jquery.deferred.sequence.js');
+		grunt.file.copy('/data/www/assets/vendor/jquery.blockUI.js','/tmp/jquery.blockUI.js');
+
 	}
 
 	var phantomjsAddDumpCommands = function(phantomjs){
@@ -326,6 +393,7 @@ module.exports = function(grunt) {
 	grunt.registerTask('command-find','',function(c1,c2,c3,c4,c5,c6){
 //	 var cmd = 'ack "commands.{{command_name}} " ./src/js/commands/';
 //	 sh_exec(cmd,{command_name:command_name});
+		//var sh = require('shelljs');
 
 		if (! c1) {
 			grunt.fail.fatal('command name expected');
@@ -343,10 +411,11 @@ module.exports = function(grunt) {
 		copyCommandsToTmp();
 	  phantomjsAddDumpCommands(phantomjs);
 
+
 	  // This task is async.
 	  var done = this.async();
 
-	  var url = 'src/test/commands-test.html#command-find=' + encodeURIComponent(command_name);
+	  var url = 'file:///opt/ins/dev/jsproject/src/test/commands-test.html#command-find=' + encodeURIComponent(command_name);
 	  // Spawn phantomjs
 	  phantomjs.spawn(url, {
 	    // Additional PhantomJS options.
@@ -375,7 +444,7 @@ module.exports = function(grunt) {
 	  // This task is async.
 	  var done = this.async();
 
-	  var url = 'src/test/commands-test.html#dump_command=' + command_name;
+	  var url = 'file:///opt/ins/dev/jsproject/src/test/commands-test.html#dump_command=' + command_name;
 
 	  // Spawn phantomjs
 	  phantomjs.spawn(url, {
@@ -389,6 +458,82 @@ module.exports = function(grunt) {
 
 	});
 
+
+	grunt.registerTask('form-test', function(arg) {
+
+		if (! arg) {
+			grunt.fail.fatal('test name expected');
+		}
+
+		var js_test_file_path = 'src/test/form/' + arg + '.js';
+		if (! grunt.file.exists(js_test_file_path)){
+			grunt.fail.fatal(js_test_file_path + ' NOT EXISTS');
+		}
+
+		grunt.file.copy(js_test_file_path,'/tmp/form-test-gen.js');
+
+		var phantomjs = require('../src/phantom.js')(grunt);
+
+		copyCommandsToTmp();
+		//phantomjsAddDumpCommands(phantomjs);
+
+		// This task is async.
+		var done = this.async();
+
+		var url = 'src/test/form-test.html#' + arg;
+
+
+		// Spawn phantomjs
+		phantomjs.spawn(url, {
+			// Additional PhantomJS options.
+			options: {
+				'--debug': true,
+				'--web-security': false,
+			},
+			// Complete the task when done.
+			done: function (err) {
+				done(err);
+			}
+		});
+
+	});
+
+
+
+	grunt.registerTask('form-test2', function(arg) {
+
+		var phantomjs = require('../src/phantom.js')(grunt);
+		var done = this.async();
+
+
+		phantomjs.on('onLoadFinished', function(arg) {
+			console.log('LoadFinished',arg);
+		});
+		phantomjs.on('onInitialized', function(arg) {
+			console.log('onInitialized',arg);
+		});
+
+
+
+
+		var url = 'http://laravel.local/prepo/edit_step1?br=2&rd=auth-work';
+
+		// Spawn phantomjs
+		phantomjs.spawn(url, {
+			// Additional PhantomJS options.
+			options: {
+				'--debug': true,
+				'--web-security': false,
+			},
+			// Complete the task when done.
+			done: function (err) {
+				done(err);
+			}
+		});
+
+	});
+
+	//http://laravel.local/prepo/edit_step1?br=2&rd=auth-work
 
 	grunt.registerTask('form-dump', function(arg) {
 
@@ -406,7 +551,7 @@ module.exports = function(grunt) {
 	  // This task is async.
 	  var done = this.async();
 
-	  var url = 'src/test/commands-test.html#dump_form=' + form_name;
+	  var url = 'file:///opt/ins/dev/jsproject/src/test/commands-test.html#dump_form=' + form_name;
 
 	  // Spawn phantomjs
 	  phantomjs.spawn(url, {
@@ -438,7 +583,7 @@ module.exports = function(grunt) {
 	  var done = this.async();
 
 	  // Spawn phantomjs
-	  phantomjs.spawn('src/test/commands-test.html', {
+	  phantomjs.spawn('file:///opt/ins/dev/jsproject/src/test/commands-test.html', {
 	    // Additional PhantomJS options.
 	    options: {},
 	    // Complete the task when done.
@@ -536,7 +681,7 @@ module.exports = function(grunt) {
 
 	  copyCommandsToTmp();
 	  // Spawn phantomjs
-	  phantomjs.spawn('src/test/commands-test.html#deps', {
+	  phantomjs.spawn('file:///opt/ins/dev/jsproject/src/test/commands-test.html#deps', {
 	    // Additional PhantomJS options.
 	    options: {},
 	    // Complete the task when done.
@@ -565,7 +710,7 @@ module.exports = function(grunt) {
 	  // This task is async.
 	  var done = this.async();
 	  // Spawn phantomjs
-	  var child = phantomjs.spawn('src/test/commands-test.html#commands-list', {
+	  var child = phantomjs.spawn('file:///opt/ins/dev/jsproject/src/test/commands-test.html#commands-list', {
 	    // Additional PhantomJS options.
 	    options: {},
 	    // Complete the task when done.
@@ -601,7 +746,7 @@ module.exports = function(grunt) {
 	  var done = this.async();
 
 	  // Spawn phantomjs
-	  phantomjs.spawn('src/test/commands-test.html#forms-list', {
+	  phantomjs.spawn('file:///opt/ins/dev/jsproject/src/test/commands-test.html#forms-list', {
 	    // Additional PhantomJS options.
 	    options: {},
 	    // Complete the task when done.

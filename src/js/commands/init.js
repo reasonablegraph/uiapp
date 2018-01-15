@@ -16,11 +16,11 @@ var createDisplayItem = function(title_label,tile_uniform_label){
 	if (title_label === undefined){
 		title_label = 'title:';
 	}
-	
+
 	return function(item_id, itemFields){
-		
+
 		//console.log("@@DISPLAY-HANDLER",item_id);
-		
+
 		var my_root = jQuery('<div class="subitem">');
 		//	console.log(itemFields.ndata);
 //		jQuery.each(itemFields.ndata,function(idx,item){

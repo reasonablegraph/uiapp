@@ -1,0 +1,62 @@
+{
+
+ "testrg-version":"1.1",
+
+ "validation-version":"1",
+
+ "generated": "2016-12-27T09:52:06.750904+00:00",
+
+"vertices": {
+ "PERSON1":{"label" : "RENAMED", "title" : "RENAMED", "obj_type" : "auth-person", "jdata" : {"neighbourhood":{"def":[7112,7113],"item":[7112,7113]},"nMethod":"procActor","opac1":{"public_title":{"title":"RENAMED","id":7111},"thumbs":[],"title":"RENAMED","obj_type":"auth-person"},"opac2":{"Title_punc":"RENAMED"},"label":"RENAMED","title":"RENAMED","solr_data":{"id":"7111","object_type":"auth-person","record_type":"person","title":"RENAMED","label":"RENAMED","secondaryTitles":[null],"create_dt":{"date":"2016-12-27 09:51:56.000000","timezone_type":2,"timezone":"Z"}}}},
+ "WORK1":{"label" : "RENAMED [Συγγραφέας]. Necronomicon1", "title" : "Necronomicon1", "obj_type" : "auth-work", "jdata" : {"neighbourhood":{"def":[7111],"item":[7111]},"nMethod":"procWork","opac1":{"id":7112,"expressions":[],"manifestations":[],"public_title":{"title":"RENAMED. Necronomicon1","id":7112,"author":{"title":"RENAMED","id":7111}},"public_lines":[],"title":"Necronomicon1","obj_type":"auth-work"},"opac2":{"Title_punc":"RENAMED [\u03a3\u03c5\u03b3\u03b3\u03c1\u03b1\u03c6\u03ad\u03b1\u03c2]. Necronomicon1"},"label":"RENAMED [\u03a3\u03c5\u03b3\u03b3\u03c1\u03b1\u03c6\u03ad\u03b1\u03c2]. Necronomicon1","title":"Necronomicon1","solr_data":{"id":"7111","object_type":"auth-person","record_type":"person","title":"RENAMED","label":"RENAMED","secondaryTitles":[null],"create_dt":{"date":"2016-12-27 09:51:57.000000","timezone_type":2,"timezone":"Z"}}}},
+ "WORK2":{"label" : "RENAMED [Συγγραφέας]. Necronomicon2", "title" : "Necronomicon2", "obj_type" : "auth-work", "jdata" : {"neighbourhood":{"def":[7111],"item":[7111]},"nMethod":"procWork","opac1":{"id":7113,"expressions":[],"manifestations":[],"public_title":{"title":"RENAMED. Necronomicon2","id":7113,"author":{"title":"RENAMED","id":7111}},"public_lines":[],"title":"Necronomicon2","obj_type":"auth-work"},"opac2":{"Title_punc":"RENAMED [\u03a3\u03c5\u03b3\u03b3\u03c1\u03b1\u03c6\u03ad\u03b1\u03c2]. Necronomicon2"},"label":"RENAMED [\u03a3\u03c5\u03b3\u03b3\u03c1\u03b1\u03c6\u03ad\u03b1\u03c2]. Necronomicon2","title":"Necronomicon2","solr_data":{"id":"7111","object_type":"auth-person","record_type":"person","title":"RENAMED","label":"RENAMED","secondaryTitles":[null],"create_dt":{"date":"2016-12-27 09:51:57.000000","timezone_type":2,"timezone":"Z"}}}}
+
+},
+"relations": {
+ "r1":{"from" : "WORK1", "to" : "PERSON1", "element" : "ea:work:authorWork", "level" : 0, "link" : null, "inferred" : false, "rel" : null, "text_value" : "RENAMED", "parent_element" : null, "parent_value" : null},
+ "r2":{"from" : "WORK2", "to" : "PERSON1", "element" : "ea:work:authorWork", "level" : 0, "link" : null, "inferred" : false, "rel" : null, "text_value" : "RENAMED", "parent_element" : null, "parent_value" : null}
+
+},
+"properties": {
+ "a1":{"from_key" : "PERSON1", "element" : "dc:title:", "text_value" : "RENAMED", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 1, "link" : null, "level" : 0, "data" : null},
+ "a2":{"from_key" : "PERSON1", "element" : "dc:identifier:uri", "text_value" : "http://laravel.local/archive/item/7111", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 2, "link" : null, "level" : 0, "data" : null},
+ "a3":{"from_key" : "PERSON1", "element" : "dc:description:provenance", "text_value" : "Submitted by admin on 2016-12-27T09:51:56Z (UTC)", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 3, "link" : null, "level" : 0, "data" : null},
+ "a4":{"from_key" : "PERSON1", "element" : "dc:date:issued", "text_value" : "2016-12-27", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 4, "link" : null, "level" : 0, "data" : null},
+ "a5":{"from_key" : "PERSON1", "element" : "dc:date:available", "text_value" : "2016-12-27T09:51:56Z", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 5, "link" : null, "level" : 0, "data" : null},
+ "a6":{"from_key" : "PERSON1", "element" : "dc:date:accessioned", "text_value" : "2016-12-27T09:51:56Z", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 6, "link" : null, "level" : 0, "data" : null},
+ "a7":{"from_key" : "PERSON1", "element" : "ea:identifier:id", "text_value" : "7111", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 7, "link" : null, "level" : 0, "data" : null},
+ "a8":{"from_key" : "PERSON1", "element" : "ea:obj-type:", "text_value" : "auth-person", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 8, "link" : null, "level" : 0, "data" : {"prps":{"selected_value":"Person"}}},
+ "a9":{"from_key" : "PERSON1", "element" : "ea:status:", "text_value" : "finish", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 9, "link" : null, "level" : 0, "data" : {"prps":{"selected_value":"finish"}}},
+ "a10":{"from_key" : "PERSON1", "element" : "ea:test:key1", "text_value" : "PERSON1", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 10, "link" : null, "level" : 0, "data" : null},
+ "a11":{"from_key" : "PERSON1", "element" : "ea:control:Kind_Record", "text_value" : "authorityKindRecord_a", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 13, "link" : null, "level" : 0, "data" : {"prps":{"selected_value":"\u039a\u03b1\u03b8\u03b9\u03b5\u03c1\u03c9\u03bc\u03ad\u03bd\u03b7 \u03b5\u03c0\u03b9\u03ba\u03b5\u03c6\u03b1\u03bb\u03af\u03b4\u03b1"}}},
+ "a12":{"from_key" : "PERSON1", "element" : "ea:control:Level_Establish", "text_value" : "authorityLevelEstablish_a", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 14, "link" : null, "level" : 0, "data" : {"prps":{"selected_value":"\u03a0\u03bb\u03ae\u03c1\u03b7\u03c2 \u03ba\u03b1\u03b8\u03b9\u03ad\u03c1\u03c9\u03c3\u03b7"}}},
+ "a13":{"from_key" : "PERSON1", "element" : "ea:auth:Person_Entity_Language", "text_value" : "undefined", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 15, "link" : null, "level" : 0, "data" : {"prps":{"selected_value":"\u039c\u03b7 \u03c0\u03c1\u03bf\u03c3\u03b4\u03b9\u03bf\u03c1\u03b9\u03c3\u03bc\u03ad\u03bd\u03b7"}}},
+ "a14":{"from_key" : "PERSON1", "element" : "ea:auth:Person_Ind1", "text_value" : "typePersonalName_1", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 16, "link" : null, "level" : 0, "data" : {"prps":{"selected_value":"\u0395\u03c0\u03ce\u03bd\u03c5\u03bc\u03bf"}}},
+ "a15":{"from_key" : "PERSON1", "element" : "ea:authPerson:Gender_Name", "text_value" : "undefined", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 34, "link" : null, "level" : 0, "data" : {"prps":{"selected_value":"\u039c\u03b7 \u03c0\u03c1\u03bf\u03c3\u03b4\u03b9\u03bf\u03c1\u03b9\u03c3\u03bc\u03ad\u03bd\u03bf"}}},
+ "a16":{"from_key" : "PERSON1", "element" : "ea:authAssociated:Language", "text_value" : "undefined", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 35, "link" : null, "level" : 0, "data" : {"prps":{"selected_value":"\u039c\u03b7 \u03c0\u03c1\u03bf\u03c3\u03b4\u03b9\u03bf\u03c1\u03b9\u03c3\u03bc\u03ad\u03bd\u03b7"}}},
+ "a17":{"from_key" : "PERSON1", "element" : "ea:label:", "text_value" : "RENAMED", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 56, "link" : null, "level" : 0, "data" : null},
+ "a18":{"from_key" : "WORK1", "element" : "dc:title:", "text_value" : "Necronomicon1", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 1, "link" : null, "level" : 0, "data" : null},
+ "a19":{"from_key" : "WORK1", "element" : "ea:obj-type:", "text_value" : "auth-work", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 2, "link" : null, "level" : 0, "data" : null},
+ "a20":{"from_key" : "WORK1", "element" : "ea:status:", "text_value" : "finish", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 3, "link" : null, "level" : 0, "data" : null},
+ "a21":{"from_key" : "WORK1", "element" : "ea:test:key1", "text_value" : "WORK1", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 4, "link" : null, "level" : 0, "data" : null},
+ "a22":{"from_key" : "WORK1", "element" : "ea:work:authorWork", "text_value" : "RENAMED", "inferred" : false, "ref_key" : "PERSON1", "relation" : null, "lid" : 5, "link" : null, "level" : 0, "data" : {"data":{"rel_type":"locked","org_value":"Doe, John","ref_label":"RENAMED","ref_ot":"auth-person"}}},
+ "a23":{"from_key" : "WORK1", "element" : "dc:date:accessioned", "text_value" : "2016-12-27T09:51:57Z", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : null, "link" : null, "level" : 0, "data" : null},
+ "a24":{"from_key" : "WORK1", "element" : "dc:date:available", "text_value" : "2016-12-27T09:51:57Z", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : null, "link" : null, "level" : 0, "data" : null},
+ "a25":{"from_key" : "WORK1", "element" : "dc:date:issued", "text_value" : "2016-12-27", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : null, "link" : null, "level" : 0, "data" : null},
+ "a26":{"from_key" : "WORK1", "element" : "dc:description:provenance", "text_value" : "Submitted by admin on 2016-12-27T09:51:57Z (UTC)", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : null, "link" : null, "level" : 0, "data" : null},
+ "a27":{"from_key" : "WORK1", "element" : "dc:identifier:uri", "text_value" : "http://laravel.local/archive/item/7112", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : null, "link" : null, "level" : 0, "data" : null},
+ "a28":{"from_key" : "WORK1", "element" : "ea:identifier:id", "text_value" : "7112", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : null, "link" : null, "level" : 0, "data" : null},
+ "a29":{"from_key" : "WORK2", "element" : "dc:title:", "text_value" : "Necronomicon2", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 1, "link" : null, "level" : 0, "data" : null},
+ "a30":{"from_key" : "WORK2", "element" : "ea:obj-type:", "text_value" : "auth-work", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 2, "link" : null, "level" : 0, "data" : null},
+ "a31":{"from_key" : "WORK2", "element" : "ea:status:", "text_value" : "finish", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 3, "link" : null, "level" : 0, "data" : null},
+ "a32":{"from_key" : "WORK2", "element" : "ea:test:key1", "text_value" : "WORK2", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 4, "link" : null, "level" : 0, "data" : null},
+ "a33":{"from_key" : "WORK2", "element" : "ea:work:authorWork", "text_value" : "RENAMED", "inferred" : false, "ref_key" : "PERSON1", "relation" : null, "lid" : 5, "link" : null, "level" : 0, "data" : {"data":{"rel_type":"locked","org_value":"Doe, John","ref_label":"RENAMED","ref_ot":"auth-person"}}},
+ "a34":{"from_key" : "WORK2", "element" : "dc:date:accessioned", "text_value" : "2016-12-27T09:51:57Z", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : null, "link" : null, "level" : 0, "data" : null},
+ "a35":{"from_key" : "WORK2", "element" : "dc:date:available", "text_value" : "2016-12-27T09:51:57Z", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : null, "link" : null, "level" : 0, "data" : null},
+ "a36":{"from_key" : "WORK2", "element" : "dc:date:issued", "text_value" : "2016-12-27", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : null, "link" : null, "level" : 0, "data" : null},
+ "a37":{"from_key" : "WORK2", "element" : "dc:description:provenance", "text_value" : "Submitted by admin on 2016-12-27T09:51:57Z (UTC)", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : null, "link" : null, "level" : 0, "data" : null},
+ "a38":{"from_key" : "WORK2", "element" : "dc:identifier:uri", "text_value" : "http://laravel.local/archive/item/7113", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : null, "link" : null, "level" : 0, "data" : null},
+ "a39":{"from_key" : "WORK2", "element" : "ea:identifier:id", "text_value" : "7113", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : null, "link" : null, "level" : 0, "data" : null}
+
+}
+}

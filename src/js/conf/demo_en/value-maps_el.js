@@ -356,6 +356,12 @@ var gender_map = {
   };
 
 
+var item_type_map_pdf= {
+		'undefined':'Μη προσδιορισμένος',
+		'pdf':'PDF σκαναρισμένο (scanned)',
+		'daisy':'PDF με αναγνώρηση χαρακτήρων (OCR)',
+};
+
 var physical_item_type_map= {
 		'undefined':'Μη προσδιορισμένος',
 		'book':'Βιβλίο',

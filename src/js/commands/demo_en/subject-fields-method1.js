@@ -776,7 +776,7 @@ cmdCreate('subject_list_search_dialog_fr',{
                   "style": "display:none"
                 },
                 {
-                	text : 'New Form',
+                	text : 'New Genre',
                 	id : 'b_d16',
                 	style : 'display:none'
                 },

@@ -1,6 +1,9 @@
 ///////////////////////////////////////////////////////////////////////
 //WIDGET   InputIssueNo  αριθμος:☐☐☐☐ label:☐☐☐☐☐ comment:☐☐☐☐☐
 ///////////////////////////////////////////////////////////////////////
+
+
+
 InputIssueNo.prototype = new InputBaseWidget();
 InputIssueNo.prototype.constructor = InputDate;
 function InputIssueNo(fc, options) {
@@ -12,9 +15,9 @@ function InputIssueNo(fc, options) {
 
 	var width = (options.width === undefined) ? 340 : options.width;
 
-	this.inputNE = InputtLineUtil.createIntegerInput(inputCE, 'number', 80);
-	this.inputLE = InputtLineUtil.createTextInput(inputCE, ' label', 100);
-	this.inputTE = InputtLineUtil.createTextInput(inputCE, ' comment', width);
+	this.inputNE = InputtLineUtil.createIntegerInput(inputCE, key_labels['issue_number'], 80);
+	this.inputLE = InputtLineUtil.createTextInput(inputCE, key_labels['issue_label'], 150);
+	this.inputTE = InputtLineUtil.createTextInput(inputCE, key_labels['issue_comment'], width);
 
 	InputBaseWidget._setupReader.call(this);
 
@@ -67,8 +70,8 @@ function InputDate(fc, options) {
 
 	var width = (options.width === undefined) ? 470 : options.width;
 
-	this.inputYE = InputtLineUtil.createYearInput(inputCE, 'y', 80);
-	this.inputME = InputtLineUtil.createMonthInput(inputCE, ' m', 24);
+	this.inputYE = InputtLineUtil.createYearInput(inputCE, 'y', 67);
+	this.inputME = InputtLineUtil.createMonthInput(inputCE, ' m', 37);
 	this.inputDE = InputtLineUtil.createDayInput(inputCE, 'd', 24);
 	this.inputTE = InputtLineUtil.createTextInput(inputCE, 'c', width);
 
@@ -802,6 +805,16 @@ function InputTextArea(fc, options) {
 		tinyMCE.on('AddEditor', function(obj) {
 			obj.editor.on('postRender', function() {
 				var tinymceContainer = this.getContainer();
+
+				if(!window['focusFix']){
+						jQuery('body').on('focusin', function(e) {
+							if (jQuery(e.target).closest(".mce-window").length) {
+								e.stopImmediatePropagation();
+							}
+						});
+						window['focusFix'] = true;
+				}
+
 				if (width) {
 					tinymceContainer.style["width"] = pl.pixelify(width);
 				}
@@ -982,6 +995,7 @@ function InputObjectSearch(fc, options) {
 
 	this.key = key;
 
+	this.skip_title_for_new_object = options['skip_title_for_new_object'] ? true : false;
 	this.select_command = select_command;
 	this.field_element = field_element;
 	this.display_handler = options.display_handler;
@@ -993,12 +1007,19 @@ function InputObjectSearch(fc, options) {
 	// this.exec_select_command_after = options.exec_select_command_after;
 	this.relation_commands = options['relation_commands'] ? options['relation_commands'] : null;
 
-	if (options.new_button) {
+	if (options['value']) {
+		this.model.value(options['value']);
+	}
+
+	if (options['new_button']) {
 		for (k in options.new_button) {
 			var id = options.new_button[k];
 			jQuery(id).show();
 		}
 	}
+
+	var identifier_id = this.fc.getFieldModels('ea:identifier:id');
+	var item_id =  (identifier_id.length > 0) ? identifier_id[0].value() : null ;
 
 	var search = function(sv) {
 		console.log("SEARCH", sv);
@@ -1010,11 +1031,13 @@ function InputObjectSearch(fc, options) {
 		// self.button_close.hide();
 		// self.button_remove.hide();
 
+
 		jQuery.ajax({
 			url : search_url, // '/ws/archive/find-contributor',
 			data : {
 				term : sv,
-				key : key
+				key : key,
+				item_id : item_id
 			},
 			success : function(data, textStatus, jqXHR) {
 				self.listE.empty();
@@ -1340,6 +1363,8 @@ InputObjectSearch.prototype.remove = function(confirmFlag) {
 InputObjectSearch.prototype.execSELECT_COMMAND = function(key,newFlag) {
 	//key to klidi tou "select_command"  OXI tou modelou
 
+	var skip_title_for_new_object = this.skip_title_for_new_object;
+
 	if (newFlag !== undefined && newFlag){
 
 	}
@@ -1420,8 +1445,15 @@ InputObjectSearch.prototype.execSELECT_COMMAND = function(key,newFlag) {
 				var root_id = root.id();
 				var parent_id = root.link();
 				var parent_model = fc.getFieldModel(parent_id);
+
 				if (!pl.chk(root.value())){
-					mctx.addError('missing object title');
+					if (skip_title_for_new_object){
+						var new_value = key_labels[parent_model.key()];
+						parent_model.value(new_value);
+						root.value(new_value);
+					}else{
+						mctx.addError('missing object title');
+					}
 				} else {
 					parent_model.value(root.value());
 				}
@@ -1849,6 +1881,7 @@ function InputZ3950(fc, options) {
 			// my_root.append(jQuery("<pre>").text(JSON.stringify(rec['marc_fields'],
 			// null, 2)));
 
+			var marc_arr = []; //2nd
 			var ul = jQuery('<ul class="subitem">');
 			for ( var index in rec['marc_fields']) {
 				if (rec['marc_fields'].hasOwnProperty(index)) {
@@ -1858,8 +1891,9 @@ function InputZ3950(fc, options) {
 							var li = jQuery('<li>');
 							jQuery('<span class="dlab">').text(tag).appendTo(li);
 							if (typeof marcRow[tag] === 'string') {
+								marc_arr[tag]= marcRow[tag]; //2nd
 								// empty indicators
-								var ind = "<span class='marc-ind'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class='marc-field'>";
+								var ind = "<span class='marc-ind'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class='marc-field' key='"+tag+"'>";
 								jQuery('<span class="dval-mono">').html(ind + marcRow[tag] + "</span>").appendTo(li);
 							} else if (typeof marcRow[tag] === 'object') {
 								var ind1 = "&nbsp;";
@@ -1867,16 +1901,17 @@ function InputZ3950(fc, options) {
 								var htmlText = "";
 								for ( var code in marcRow[tag]) {
 									if (marcRow[tag].hasOwnProperty(code)) {
+										marc_arr[tag+code]= marcRow[tag][code]; //2nd
 										if (code === "ind1") {
 											ind1 = marcRow[tag][code];
 										} else if (code === "ind2") {
 											ind2 = marcRow[tag][code];
 										} else {
-											htmlText = htmlText + "<span class='marc-code'>&nbsp;&Dagger;" + code + "&nbsp;</span><span class='marc-field'>" + marcRow[tag][code] + "</span>";
+											htmlText = htmlText + "<span class='marc-code'>&nbsp;&Dagger;" + code + "&nbsp;</span><span class='marc-field' key='"+tag+code+"'>" + marcRow[tag][code] + "</span>";
 										}
 									}
 								}
-								var ind = "<span class='marc-ind'>&nbsp;&nbsp;" + ind1 + ind2 + "&nbsp;&nbsp;</span><span class='marc-field'>";
+								var ind = "<span class='marc-ind'>&nbsp;&nbsp;" + ind1 + ind2 + "&nbsp;&nbsp;</span><span class='marc-field' >";
 								jQuery('<span class="dval-mono">').html(ind + htmlText + "</span>").appendTo(li);
 							}
 							li.appendTo(ul);
@@ -1886,7 +1921,54 @@ function InputZ3950(fc, options) {
 			}
 			ul.appendTo(my_root);
 
-			var copyButton = jQuery('<form action="/prepo/z3950/copycatalog" method="POST" target="_blank" >' + '<input type="hidden" name="data" value=\'' + JSON.stringify(rec) + '\'/>' + '<input type="submit" value="copy tab">' + '</form>');
+
+		/////////////////////////////////////////////////////////////////////////////////////////
+			var marc_mapping = {
+				  "010a": "ea:manif:ISBN_Number",
+				  "200a": "dc:title:",
+				  "200f": "ea:manif:Title_Responsibility",
+				  "200g": "ea:manif:Title_Remainder",
+				  "200e": "ea:manif:Title_Remainder",
+				  "200i": "ea:manif:Title_PartName",
+				  "200h": "ea:manif:Title_PartNumber",
+				  "205a": "ea:manif:Edition_Remainder",
+				  "215a": "ea:manif:pages",
+				  "225a": "ea:manif:book_series_title",
+				  "300": "ea:auth:NotePublic",
+				  //periodic
+				  "326a": "ea:periodic:frequency",
+				  "207a": "ea:periodic:issues_time_range",
+				  "200d": "ea:manif:Series_Title",
+				  "200x": "ea:periodic:ISSN_Number",
+				};
+
+			var import_button = jQuery('<button class="import_button" type="button">Import</button>');
+			var fn_import = function(e){
+				e.preventDefault();
+				body = my_root.closest('.page-prepo-edit-step1');
+				jQuery.each( marc_mapping , function( key, value ) {
+					if (( key in marc_arr )){
+						body.find('[key="'+ value +'"]').find("input").val(marc_arr[key]);
+					}
+				});
+				body.find('[key="ea:manifestation:tmp"]').find("input").val(marc_arr["200a"]);
+				jQuery('div.ui-dialog-content').dialog("close");
+
+				//e.preventDefault();
+				//body = my_root.closest('.page-prepo-edit-step1');
+				//jQuery.each( marc_mapping , function( key, value ) {
+				//	text_value = my_root.find('[key="'+ key +'"]').text();
+				//	body.find('[key="'+ value +'"]').find("input").val(text_value);
+				//});
+				//text_value = my_root.find('[key="200a"]').text();
+				//body.find('[key="ea:manifestation:tmp"]').find("input").val(text_value);
+				//jQuery('div.ui-dialog-content').dialog("close");
+			};
+			import_button.click(fn_import);
+			import_button.appendTo(my_root);
+			////////////////////////////////////////////////////////////////////////////////////////
+
+			var copyButton = jQuery('<form action="/prepo/z3950/copycatalog" method="POST" target="_blank" >' + '<input type="hidden" name="data" value=\'' + JSON.stringify(rec) + '\'/>' + '<input type="submit" value="Copy tab">' + '</form>');
 			copyButton.appendTo(my_root);
 
 			my_root.appendTo(self.field_element);

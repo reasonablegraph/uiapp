@@ -1,0 +1,81 @@
+{
+
+ "testrg-version":"1.1",
+
+ "validation-version":"1",
+
+ "generated": "2016-12-27T09:54:57.537901+00:00",
+
+"vertices": {
+ "CHAIN2":{"label" : "CONCEPT21 -- CONCEPT22", "title" : "CONCEPT21 -- CONCEPT22", "obj_type" : "subject-chain", "jdata" : {"neighbourhood":{"def":[7166,7167,7168],"item":[7166,7167,7168]},"nMethod":"procSubjectChain","chain_subjects":[{"label":"CONCEPT21","ot":"auth-concept","id":7167},{"label":"CONCEPT22","ot":"auth-concept","id":7168}],"opac1":{"title":"CONCEPT21 -- CONCEPT22","obj_type":"subject-chain"},"opac2":[],"label":"CONCEPT21 -- CONCEPT22","title":"CONCEPT21 -- CONCEPT22","solr_data":{"id":"7168","object_type":"auth-concept","record_type":"concept","title":"CONCEPT22","label":"CONCEPT22","is_subject":true,"create_dt":{"date":"2016-12-27 09:54:45.000000","timezone_type":2,"timezone":"Z"}}}},
+ "CONCEPT21":{"label" : "CONCEPT21", "title" : "CONCEPT21", "obj_type" : "auth-concept", "jdata" : {"neighbourhood":{"def":[7169,7166,7168],"item":[7169,7166,7168]},"nMethod":"procSubjectChainLink","opac1":{"id":7167,"thumbs":[],"title":"CONCEPT21","obj_type":"auth-concept"},"opac2":[],"label":"CONCEPT21","title":"CONCEPT21","solr_data":{"id":"7167","object_type":"auth-concept","record_type":"concept","title":"CONCEPT21","label":"CONCEPT21","create_dt":{"date":"2016-12-27 09:54:43.000000","timezone_type":2,"timezone":"Z"}}}},
+ "CONCEPT22":{"label" : "CONCEPT22", "title" : "CONCEPT22", "obj_type" : "auth-concept", "jdata" : {"neighbourhood":{"def":[7169,7166,7167],"item":[7169,7166,7167]},"nMethod":"procSubjectChainLink","opac1":{"id":7168,"thumbs":[],"title":"CONCEPT22","obj_type":"auth-concept"},"opac2":[],"label":"CONCEPT22","title":"CONCEPT22","solr_data":{"id":"7168","object_type":"auth-concept","record_type":"concept","title":"CONCEPT22","label":"CONCEPT22","create_dt":{"date":"2016-12-27 09:54:44.000000","timezone_type":2,"timezone":"Z"}}}},
+ "WORK1":{"label" : "WORK1", "title" : "WORK1", "obj_type" : "auth-work", "jdata" : {"neighbourhood":{"def":[7169],"item":[7169]},"nMethod":"procWork","opac1":{"id":7166,"expressions":[],"manifestations":[],"public_title":{"title":"WORK1","id":7166,"author":null},"public_lines":[],"title":"WORK1","obj_type":"auth-work"},"opac2":{"Title_punc":"WORK1"},"label":"WORK1","title":"WORK1"}}
+
+},
+"relations": {
+ "r1":{"from" : "CHAIN2", "to" : "CONCEPT21", "element" : "ea:inferred-chain-link:", "level" : 0, "link" : null, "inferred" : true, "rel" : null, "text_value" : "CONCEPT21", "parent_element" : null, "parent_value" : null},
+ "r2":{"from" : "CHAIN2", "to" : "CONCEPT22", "element" : "ea:inferred-chain-link:", "level" : 0, "link" : null, "inferred" : true, "rel" : null, "text_value" : "CONCEPT22", "parent_element" : null, "parent_value" : null},
+ "r3":{"from" : "CHAIN2", "to" : "CONCEPT22", "element" : "ea:subj:concept", "level" : 0, "link" : null, "inferred" : false, "rel" : null, "text_value" : "CONCEPT22", "parent_element" : null, "parent_value" : null},
+ "r4":{"from" : "CHAIN2", "to" : "CONCEPT21", "element" : "ea:subj:concept:primary", "level" : 0, "link" : null, "inferred" : false, "rel" : null, "text_value" : "CONCEPT21", "parent_element" : null, "parent_value" : null},
+ "r5":{"from" : "WORK1", "to" : "CHAIN2", "element" : "ea:subj:", "level" : 0, "link" : null, "inferred" : false, "rel" : null, "text_value" : "CONCEPT21 -- CONCEPT22", "parent_element" : null, "parent_value" : null}
+
+},
+"properties": {
+ "a1":{"from_key" : "CHAIN2", "element" : "dc:date:available", "text_value" : "2016-12-27T09:54:45Z", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 1, "link" : null, "level" : 0, "data" : null},
+ "a2":{"from_key" : "CHAIN2", "element" : "dc:date:accessioned", "text_value" : "2016-12-27T09:54:45Z", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 2, "link" : null, "level" : 0, "data" : null},
+ "a3":{"from_key" : "CHAIN2", "element" : "ea:status:", "text_value" : "finish", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 95, "link" : null, "level" : 0, "data" : {"prps":{"selected_value":"finish"}}},
+ "a4":{"from_key" : "CHAIN2", "element" : "ea:obj-type:", "text_value" : "subject-chain", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 96, "link" : null, "level" : 0, "data" : null},
+ "a5":{"from_key" : "CHAIN2", "element" : "ea:test:key1", "text_value" : "CHAIN2", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 97, "link" : null, "level" : 0, "data" : null},
+ "a6":{"from_key" : "CHAIN2", "element" : "ea:subj:concept:primary", "text_value" : "CONCEPT21", "inferred" : false, "ref_key" : "CONCEPT21", "relation" : null, "lid" : 98, "link" : null, "level" : 0, "data" : {"data":{"sub-root":true,"new_type":"new","ot":"auth-concept","org_value":"CONCEPT21","ref_label":"CONCEPT21","ref_ot":"auth-concept"}}},
+ "a7":{"from_key" : "CHAIN2", "element" : "ea:subj:concept", "text_value" : "CONCEPT22", "inferred" : false, "ref_key" : "CONCEPT22", "relation" : null, "lid" : 99, "link" : null, "level" : 0, "data" : {"data":{"sub-root":true,"new_type":"new","ot":"auth-concept","org_value":"CONCEPT22","ref_label":"CONCEPT22","ref_ot":"auth-concept"}}},
+ "a8":{"from_key" : "CHAIN2", "element" : "dc:title:", "text_value" : "CONCEPT21 -- CONCEPT22", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 148, "link" : null, "level" : 0, "data" : {"prps":{"pnctn":"CONCEPT21 -- CONCEPT22"}}},
+ "a9":{"from_key" : "CHAIN2", "element" : "ea:identifier:id", "text_value" : "7169", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 149, "link" : null, "level" : 0, "data" : null},
+ "a10":{"from_key" : "CHAIN2", "element" : "dc:identifier:uri", "text_value" : "http://laravel.local/archive/item/7169", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 150, "link" : null, "level" : 0, "data" : null},
+ "a11":{"from_key" : "CHAIN2", "element" : "dc:description:provenance", "text_value" : "Submitted by admin on 2016-12-27T09:54:45Z (UTC)", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 151, "link" : null, "level" : 0, "data" : null},
+ "a12":{"from_key" : "CHAIN2", "element" : "dc:date:issued", "text_value" : "2016-12-27", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 152, "link" : null, "level" : 0, "data" : null},
+ "a13":{"from_key" : "CHAIN2", "element" : "ea:control:Kind_Record", "text_value" : "authorityKindRecord_a", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 157, "link" : null, "level" : 0, "data" : {"prps":{"selected_value":"\u039a\u03b1\u03b8\u03b9\u03b5\u03c1\u03c9\u03bc\u03ad\u03bd\u03b7 \u03b5\u03c0\u03b9\u03ba\u03b5\u03c6\u03b1\u03bb\u03af\u03b4\u03b1"}}},
+ "a14":{"from_key" : "CHAIN2", "element" : "ea:control:Level_Establish", "text_value" : "authorityLevelEstablish_a", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 158, "link" : null, "level" : 0, "data" : {"prps":{"selected_value":"\u03a0\u03bb\u03ae\u03c1\u03b7\u03c2 \u03ba\u03b1\u03b8\u03b9\u03ad\u03c1\u03c9\u03c3\u03b7"}}},
+ "a15":{"from_key" : "CHAIN2", "element" : "ea:subj:control", "text_value" : "1", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 177, "link" : null, "level" : 0, "data" : null},
+ "a16":{"from_key" : "CHAIN2", "element" : "ea:auth:NotePublic", "text_value" : "PUBLIC NOTE ##3", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 178, "link" : null, "level" : 0, "data" : null},
+ "a17":{"from_key" : "CHAIN2", "element" : "ea:inferred-chain-link:", "text_value" : "CONCEPT21", "inferred" : true, "ref_key" : "CONCEPT21", "relation" : null, "lid" : null, "link" : null, "level" : 0, "data" : {"data":{"ref_label":"CONCEPT21"}}},
+ "a18":{"from_key" : "CHAIN2", "element" : "ea:inferred-chain-link:", "text_value" : "CONCEPT22", "inferred" : true, "ref_key" : "CONCEPT22", "relation" : null, "lid" : null, "link" : null, "level" : 0, "data" : {"data":{"ref_label":"CONCEPT22"}}},
+ "a19":{"from_key" : "CONCEPT21", "element" : "dc:title:", "text_value" : "CONCEPT21", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 1, "link" : null, "level" : 0, "data" : null},
+ "a20":{"from_key" : "CONCEPT21", "element" : "ea:obj-type:", "text_value" : "auth-concept", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 2, "link" : null, "level" : 0, "data" : null},
+ "a21":{"from_key" : "CONCEPT21", "element" : "ea:status:", "text_value" : "finish", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 3, "link" : null, "level" : 0, "data" : null},
+ "a22":{"from_key" : "CONCEPT21", "element" : "ea:test:key1", "text_value" : "CONCEPT21", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 4, "link" : null, "level" : 0, "data" : null},
+ "a23":{"from_key" : "CONCEPT21", "element" : "dc:date:accessioned", "text_value" : "2016-12-27T09:54:43Z", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : null, "link" : null, "level" : 0, "data" : null},
+ "a24":{"from_key" : "CONCEPT21", "element" : "dc:date:available", "text_value" : "2016-12-27T09:54:43Z", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : null, "link" : null, "level" : 0, "data" : null},
+ "a25":{"from_key" : "CONCEPT21", "element" : "dc:date:issued", "text_value" : "2016-12-27", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : null, "link" : null, "level" : 0, "data" : null},
+ "a26":{"from_key" : "CONCEPT21", "element" : "dc:description:provenance", "text_value" : "Submitted by admin on 2016-12-27T09:54:43Z (UTC)", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : null, "link" : null, "level" : 0, "data" : null},
+ "a27":{"from_key" : "CONCEPT21", "element" : "dc:identifier:uri", "text_value" : "http://laravel.local/archive/item/7167", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : null, "link" : null, "level" : 0, "data" : null},
+ "a28":{"from_key" : "CONCEPT21", "element" : "ea:identifier:id", "text_value" : "7167", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : null, "link" : null, "level" : 0, "data" : null},
+ "a29":{"from_key" : "CONCEPT22", "element" : "dc:title:", "text_value" : "CONCEPT22", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 1, "link" : null, "level" : 0, "data" : null},
+ "a30":{"from_key" : "CONCEPT22", "element" : "ea:obj-type:", "text_value" : "auth-concept", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 2, "link" : null, "level" : 0, "data" : null},
+ "a31":{"from_key" : "CONCEPT22", "element" : "ea:status:", "text_value" : "finish", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 3, "link" : null, "level" : 0, "data" : null},
+ "a32":{"from_key" : "CONCEPT22", "element" : "ea:test:key1", "text_value" : "CONCEPT22", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 4, "link" : null, "level" : 0, "data" : null},
+ "a33":{"from_key" : "CONCEPT22", "element" : "dc:date:accessioned", "text_value" : "2016-12-27T09:54:44Z", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : null, "link" : null, "level" : 0, "data" : null},
+ "a34":{"from_key" : "CONCEPT22", "element" : "dc:date:available", "text_value" : "2016-12-27T09:54:44Z", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : null, "link" : null, "level" : 0, "data" : null},
+ "a35":{"from_key" : "CONCEPT22", "element" : "dc:date:issued", "text_value" : "2016-12-27", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : null, "link" : null, "level" : 0, "data" : null},
+ "a36":{"from_key" : "CONCEPT22", "element" : "dc:description:provenance", "text_value" : "Submitted by admin on 2016-12-27T09:54:44Z (UTC)", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : null, "link" : null, "level" : 0, "data" : null},
+ "a37":{"from_key" : "CONCEPT22", "element" : "dc:identifier:uri", "text_value" : "http://laravel.local/archive/item/7168", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : null, "link" : null, "level" : 0, "data" : null},
+ "a38":{"from_key" : "CONCEPT22", "element" : "ea:identifier:id", "text_value" : "7168", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : null, "link" : null, "level" : 0, "data" : null},
+ "a39":{"from_key" : "WORK1", "element" : "dc:title:", "text_value" : "WORK1", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 1, "link" : null, "level" : 0, "data" : null},
+ "a40":{"from_key" : "WORK1", "element" : "dc:identifier:uri", "text_value" : "http://laravel.local/archive/item/7166", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 2, "link" : null, "level" : 0, "data" : null},
+ "a41":{"from_key" : "WORK1", "element" : "dc:description:provenance", "text_value" : "Submitted by admin on 2016-12-27T09:54:41Z (UTC)", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 3, "link" : null, "level" : 0, "data" : null},
+ "a42":{"from_key" : "WORK1", "element" : "dc:date:issued", "text_value" : "2016-12-27", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 4, "link" : null, "level" : 0, "data" : null},
+ "a43":{"from_key" : "WORK1", "element" : "dc:date:available", "text_value" : "2016-12-27T09:54:41Z", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 5, "link" : null, "level" : 0, "data" : null},
+ "a44":{"from_key" : "WORK1", "element" : "dc:date:accessioned", "text_value" : "2016-12-27T09:54:41Z", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 6, "link" : null, "level" : 0, "data" : null},
+ "a45":{"from_key" : "WORK1", "element" : "ea:identifier:id", "text_value" : "7166", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 7, "link" : null, "level" : 0, "data" : null},
+ "a46":{"from_key" : "WORK1", "element" : "ea:obj-type:", "text_value" : "auth-work", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 8, "link" : null, "level" : 0, "data" : null},
+ "a47":{"from_key" : "WORK1", "element" : "ea:status:", "text_value" : "finish", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 9, "link" : null, "level" : 0, "data" : {"prps":{"selected_value":"finish"}}},
+ "a48":{"from_key" : "WORK1", "element" : "ea:test:key1", "text_value" : "WORK1", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 10, "link" : null, "level" : 0, "data" : null},
+ "a49":{"from_key" : "WORK1", "element" : "ea:work:Type", "text_value" : "workSubclassTable_Individual", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 13, "link" : null, "level" : 0, "data" : {"prps":{"selected_value":"\u0391\u03c5\u03c4\u03bf\u03c4\u03b5\u03bb\u03ae \u03ad\u03c1\u03b3\u03b1"}}},
+ "a50":{"from_key" : "WORK1", "element" : "ea:work:Language", "text_value" : "undefined", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 19, "link" : null, "level" : 0, "data" : {"prps":{"selected_value":"\u039c\u03b7 \u03c0\u03c1\u03bf\u03c3\u03b4\u03b9\u03bf\u03c1\u03b9\u03c3\u03bc\u03ad\u03bd\u03b7"}}},
+ "a51":{"from_key" : "WORK1", "element" : "ea:label:", "text_value" : "empty", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 91, "link" : null, "level" : 0, "data" : null},
+ "a52":{"from_key" : "WORK1", "element" : "ea:auth:NotePublic", "text_value" : "PUBLIC NOTE ##1", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 92, "link" : null, "level" : 0, "data" : null},
+ "a53":{"from_key" : "WORK1", "element" : "ea:auth:NotePublic", "text_value" : "PUBLIC NOTE ##2", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 93, "link" : null, "level" : 0, "data" : null},
+ "a54":{"from_key" : "WORK1", "element" : "ea:subj:", "text_value" : "CONCEPT21 -- CONCEPT22", "inferred" : false, "ref_key" : "CHAIN2", "relation" : null, "lid" : 94, "link" : null, "level" : 0, "data" : {"prps":{"pnctn":"CHAIN2 -- CONCEPT21 -- CONCEPT22"},"data":{"create_subitem":true,"test_key":"CHAIN2","ot":"subject-chain","org_value":"CHAIN2 -- CONCEPT21 -- CONCEPT22","ref_label":"CONCEPT21 -- CONCEPT22","ref_ot":"subject-chain"}}}
+
+}
+}

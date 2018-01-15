@@ -1,0 +1,38 @@
+#!/usr/bin/env node
+
+var args = process.argv.slice(2);
+
+var _decode=function(str){
+	var r = /\\u([\d\w]{4})/gi;
+	str = str.replace(r, function (match, grp) {
+		return String.fromCharCode(parseInt(grp, 16)); }
+	);
+	return unescape(str);
+}
+
+
+
+var readline = require('readline');
+var rl;
+
+if (args.length > 0) {
+	var fs=require("fs");
+	rl = readline.createInterface({
+		input: fs.createReadStream(args[0])
+	});
+} else {
+	rl = readline.createInterface({
+		input: process.stdin,
+		output: process.stdout,
+		terminal: false
+	});
+}
+
+rl.on('line', function(line, lineCount, byteCount){
+	console.log(_decode(line));
+});
+
+rl.on('error', function(e) {
+	console.log("ERROR");
+	console.log(e);
+});

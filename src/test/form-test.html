@@ -1,0 +1,100 @@
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+	<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+	<script type="text/javascript" src="/tmp/jquery.deferred.sequence.js"></script>
+	<script type="text/javascript" src="/tmp/jquery.blockUI.js"></script>
+
+	<script type="text/javascript" src="/tmp/step1_conf_gen.js"></script>
+	<script type="text/javascript" src="/tmp/commands_gen.js"></script>
+	<script type="text/javascript" src="/tmp/form_controler_gen.js"></script>
+	<script type="text/javascript" src="/tmp/putil.js"></script>
+
+	<script type="text/javascript" src="form-lib.js"></script>
+	<script type="text/javascript" src="commands-lib.js"></script>
+	<script type="text/javascript" src="commands-deps.js"></script>
+	<script>
+		var p1 =document.URL.split('#')[1];
+		if (p1) {
+			console.log(p1);
+		}
+	</script>
+
+</head>
+<body>
+
+
+<script>
+	var default_form_obj_type = null;
+	var js_params = {};
+	var language_default = "el";
+	var languages_avail = {
+		"": "N/A",
+		el: "Ελληνικά",
+		it: "Italian",
+		en: "English",
+		sp: "Spanish",
+		fr: "French",
+		de: "German",
+		sq: "Albanian",
+		bul: "Bulgarian",
+		tur: "Turkish",
+		sr: "Serbian",
+		other: "(Other)"
+	};
+	var avail_statuses = {
+		"finish": "finish",
+		"pending": "pending",
+		"incomplete": "incomplete",
+		"error": "error",
+		"direct_only": "direct_only",
+		"private": "private",
+		"hidden": "hidden"
+	};
+	var object_types = {"values": {"auth-work": "Work"}, "default": "auth-work"};
+	var data = {};
+	//step1(0, object_types, data);
+</script>
+
+
+
+<div id="jsmessages" class="fmessages"></div>
+<form id="forms1"  method="post" action="/prepo/edit_step1">
+	<input type="hidden"  name="submit_id" value="" />
+	<input type="hidden"  name="item_id" value="106" />
+	<input type="hidden"  name="edoc" value="" />
+	<input type="hidden"  name="stype" value="" />
+	<input type="hidden"  name="cd" value="" />
+	<input type="hidden"  name="br" value="0" />
+	<input type="hidden"  name="agt" value="0" />
+
+	<button type="submit" name="save" value="save">save</button>
+	<button type="submit" name="next" value="next" style="margin-left: 20px">next</button>
+	<button type="submit" name="save_finalize" value="save_finalize" style="float: right">save_finalize</button>
+
+	<div id="step1f" class="jsform">
+
+	</div>
+
+</form>
+
+
+
+	<script type="text/javascript" src="/tmp/form-test-gen.js"></script>
+
+
+
+	<script>
+		console.log("FIN");
+		//phantomTask('phantom.done');
+	</script>
+
+
+<script>
+</script>
+
+
+</body>
+</html>

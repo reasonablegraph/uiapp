@@ -159,6 +159,11 @@ a{
     color: #fff;
 }
 
+.old_rec {
+	font-size:12px;
+	color:red
+}
+
 .sdonwload.label{
 	padding: 0.1em 0.4em 0.1em 0.4em;
 }
@@ -172,6 +177,15 @@ a{
  .solr_link a{
 	outline: 0;
 }
+
+//solr pager
+.sresult a.page_link {padding:5px;}
+.sresult  span.current {padding:5px;}
+.sresult .next {margin-left:5px;}
+.sresult .prev {margin-right:5px;}
+.sresult .disabled {margin-left:5px;}
+.page_point {margin-top:7px;}
+//
 
 .row.tbr{
 	padding-top:6px !important;
@@ -250,7 +264,13 @@ div.ttools a {
  color: @theme-primary-link-color;
 }
 
-
+.term-label{
+    font-weight: bold;
+    padding-right: 12px;
+    padding-left: 0;
+    padding-top: 6px;
+    text-align: right;
+  }
 
 .a_thead.a_files {
     padding: 4px 16px;
@@ -272,6 +292,27 @@ div.ttools a {
 h1.item-title.spool {
     border: 1px solid #000;
 }
+
+.admin.item-title.log {
+    border: 1px solid #000;
+    margin: 20px 0;
+    background: #e0e0d8 none repeat scroll 0 0;
+    color: #000;
+    font-size: 1.6rem;
+    line-height: 1.8rem;
+    padding-bottom: 0.6rem;
+    padding-left: 1rem;
+    padding-right:1rem;
+    padding-top: 0.7rem;
+    text-align: left;
+}
+
+
+.admin.item-title.log .now-time{
+	font-size: 1.1rem;
+	float:right;
+}
+
 
 .table a.other_owner {
 	color:#664200;
@@ -309,10 +350,66 @@ h1.item-title.spool {
 	border: 1px solid @theme-primary-alert-color !important;
 	color: #fff;
 	outline: 0;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
 
 .action-btn.delete:hover, .action-btn.delete:focus,
+.delete.disable:hover, .delete.disable:focus,
+.delete.error:hover, .delete.error:focus,
 a.delete:hover, a.delete:focus{background-color: #FF0000;}
+
+.delete.disable{
+	border: 1px solid;
+	padding: 2px 8px;
+	border-radius: 4px;
+	display: block;
+	cursor: pointer;
+}
+
+.delete.error{
+	border: 1px solid;
+	padding: 2px 8px;
+	border-radius: 4px;
+}
+
+
+.send{
+	background-color: @theme-primary-darken-color;
+	border: 1px solid @theme-primary-darken-color !important;
+	color: #fff;
+	outline: 0;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.action-btn.send:hover, .action-btn.send:focus,
+.send.disable:hover, .send.disable:focus,
+.send.confirm:hover, .send.confirm:focus,
+a.send:hover, a.send:focus{background-color: #0078A1;}
+
+.send.disable{
+	border: 1px solid;
+	padding: 2px 8px;
+	border-radius: 4px;
+	display: block;
+	cursor: pointer;
+}
+
+.send.confirm{
+	border: 1px solid;
+	padding: 2px 8px;
+	border-radius: 4px;
+}
+
 
 
 #fileTable{
@@ -692,18 +789,42 @@ div.metadata_stats div.metadata_2 {
 }
 
 
+.side-right .list-group .title, .side-right .list-group .top{
+	cursor: pointer;
+}
+
+
 .side-right .list-group:not(.filters) .title::after {
     content: "▲";
     float: right;
 }
 
-.side-right .list-group:not(.filters) .title.collapsed::after {
+.side-right .list-group:not(.filters) .title.collapsed::after{
     content: "▼";
 }
 
 #side-panel-institution .title{
 	font-weight: bold;
 	font-size: 0.9em;
+}
+
+
+.side-right .list-group:not(.filters) .top::after {
+    content: "▲";
+    float: right;
+    margin-right:10px;
+    margin-top:4px;
+    font-size: 0.75em;
+}
+
+.side-right .list-group:not(.filters) .top.collapsed::after {
+    content: "▼";
+}
+
+
+.form-group.simple{
+	  margin-bottom: 10px;
+    margin-top: 10px;
 }
 
 .facet-header, .result-header{
@@ -719,10 +840,31 @@ div.metadata_stats div.metadata_2 {
 	text-align:center;
 }
 
-.result-header{
+.result-header, .facet-header{
 	text-align:left;
 	padding-left:15px;
+	height: auto;
+  overflow:auto;
+	margin-top:0px;
 }
+
+.reset_top_facet {
+    float: left;
+    padding: 10px 6px;
+    padding-bottom:4px !important;
+    border-right: 0px !important;
+}
+
+a.reset_top_facet_icon{
+    text-decoration: none;
+    padding-top:1px;
+}
+
+.facet-header.selected{
+		border-left: 0px;
+		padding-left: 5px !important;
+ }
+
 
 .results_exp{
 	font-size: 0.9em;
@@ -731,6 +873,29 @@ div.metadata_stats div.metadata_2 {
 .result-filter{
 	font-size: 0.75em;
 }
+
+
+//solr back-link
+@media (min-width: 1000px) {
+	.sb_link {
+		float: right;
+		}
+}
+
+.sb_link{
+	font-size: 0.78em;
+	white-space: nowrap;
+	border: 1px solid;
+	padding: 1px 3px;
+	border-radius: 4px;
+}
+
+.sb_label{
+	padding-right:0px;
+	padding-left: 0px;
+}
+//
+
 
 .line-separator{
 	height:1px;
@@ -786,9 +951,24 @@ div.metadata_stats div.metadata_2 {
 	position:relative;
 	border: 1px solid #dddddd;
 	background-color: #ffffff;
-	padding: 10px 5px 10px 10px;
+	padding: 8px 5px 8px 10px;
 	margin-bottom: -1px;
 }
+
+.list-group-item.extend{
+	 color: #555;
+}
+
+
+.list-group-item-facet.selvalue{
+	background-color: #ECECEC;//#E7E7E7;
+}
+
+//.list-group-item-facet.selvalue .left-flist{
+//	color: #fff;
+//	font-weight:bold;
+//}
+
 
 .left-flist {
 	float:left;
@@ -963,6 +1143,14 @@ div.spacer {clear: both; height: 0; font-size:0}
 
 .mimeico {
   margin-top:3px;
+}
+
+.sch_thumb_img{
+	float:right
+}
+
+.sch_thumb_img a, .item_thumb_img a{
+	 outline: 0;
 }
 
 .thumb_bg_img{
@@ -1216,8 +1404,26 @@ ul.nested-list {
 .members{ margin-top:20px;}
 
 
+.ub_link{
+	  border: 1px solid;
+    border-radius: 4px;
+    font-size: 0.78em;
+    padding: 1px 3px;
+    white-space: nowrap;
+    float:left;
+}
+
+.rcn_label{
+		margin-left:-95px;
+}
+
+
 table#physical-items caption {
 	text-align:left;
+}
+
+table#physical-items caption h2{
+	color: #333;
 }
 
 table#physical-items tr th {
@@ -1320,6 +1526,12 @@ h2.item-title {
 	color:#fff;
 }
 
+
+.itemline {
+	padding:0.6rem 0.6rem 0.6rem 1.5rem;
+	margin:0 0 10px;
+	border:1px solid #ccc;
+}
 
 /*** Search List *****/
 
@@ -1510,6 +1722,12 @@ td.item_metadata{
 	padding-left:15px;
 }
 
+.cnt_log{
+	float:right;
+	padding-right:10px;
+	padding-top: 6px;
+	font-weight: bold;
+}
 
 .repo-admin .panel-body{
 	padding: 8px;
@@ -1522,6 +1740,40 @@ td.item_metadata{
 .repo-admin ul{
 	margin-bottom:0px;
 }
+
+.panel-body.bitstream.demo {
+	padding:10px;
+}
+
+.edit-buttons{
+	margin: auto;
+	width: 930px;
+	background-color: #ccc;
+	border-radius: 4px;
+	padding: 5px;
+}
+
+.efbtn{
+	margin-right: 5px;
+}
+
+.efbtn-r{
+	float:right;
+}
+
+.efthumb{
+	margin-top: 30px;
+}
+
+input.group_by {
+  width: 13px;
+  height: 13px;
+  padding: 0;
+  margin:0;
+  vertical-align: middle;
+}
+
+
 
 /*** Cataloging edit Link *****/
 

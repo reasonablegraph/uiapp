@@ -1,0 +1,17 @@
+var known_object_types = {
+		'auth-person':1,
+		'auth-family':1,
+		'auth-organization':1,
+		'auth-place':1,
+		'auth-manifestation':1,
+		'auth-work':1,
+		'auth-expression':1,
+		'auth-concept':1,
+		'auth-event':1,
+		'auth-genre':1,
+		'auth-object':1,
+		'auth-general':1,
+		'digital-item':1,
+		'physical-item':1,
+		'subject-chain':1,
+};

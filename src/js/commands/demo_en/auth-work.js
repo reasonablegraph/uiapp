@@ -941,7 +941,7 @@ cmdCreate('z3950_search',{
     "type": "z3950",
     //'type':'text',
   	"key": "tmp:search:z3950",
-    "label": "z3950",
+    "label": "z39.50",
     "search_url": "/ws/prepo/z3950",
     "show_help": true,
     "search_button": "#b_w1",

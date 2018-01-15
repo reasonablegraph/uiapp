@@ -112,7 +112,11 @@ var cmdCreateRelation = function(commands, soptions,src_file) {
 	} ];
 	var display_inferred = soptions[display_inferred] ? soptions[display_inferred] : false;
 	var time_bounded_flag = soptions.time_bounded === undefined ? false: soptions.time_bounded;
+	var note_flag = soptions.note === undefined ? false: soptions.note;
 	var search_dialog_commands = soptions.search_dialog_commands === undefined ? []: soptions.search_dialog_commands;
+	var skip_title_for_new_object = soptions['skip_title_for_new_object'] ? true : false;
+	var hide_title_for_new_object = soptions['hide_title_for_new_object'] ? true : false;
+	var tmp_title_for_new_object = soptions['tmp_title_for_new_object'] ? soptions['tmp_title_for_new_object'] : null;
 
 	var single_object_type_flag = true;
 	if (jQuery.isPlainObject(object_type)) {
@@ -130,6 +134,7 @@ var cmdCreateRelation = function(commands, soptions,src_file) {
 			var extend_primary_key = params['extend_primary_key'];
 			var extend_primary_label = params['extend_primary_label'];
 			var input_extend_commands  = params['extend_commands'];
+			var default_value  = params['value'] ? params['value'] : null;
 
 			var cmd_extend = '_rel_' + cmd_base + '_extend_' + i;
 			var cmd_hidden_obj_type = '_rel_' + cmd_base + '_hidden_ot_' + i;
@@ -138,6 +143,7 @@ var cmdCreateRelation = function(commands, soptions,src_file) {
 				"action" : "setupField",
 				"opts" : {
 					'x-generator' : 'cmdCreateRelation',
+					'x-value' : default_value,
 					"type" : "hidden",
 					"key" : "ea:obj-type:",
 					"value" : object_type,
@@ -172,11 +178,13 @@ var cmdCreateRelation = function(commands, soptions,src_file) {
 				"action" : "setupField",
 				"opts" : {
 					'x-generator' : 'cmdCreateRelation',
-					"type" : "text",
+//					"type" : "text",
+					"type" : (skip_title_for_new_object && hide_title_for_new_object ? "hidden" : "text"),
+					"value" :  (tmp_title_for_new_object ? tmp_title_for_new_object :  key_labels['tmp_title_for_new_object_'+object_type]),
 					"show_help" : true,
 					"key" : extend_primary_key,
 					"label" : extend_primary_label,
-					"clear" : "left"
+					"clear" : "left",
 				}
 			};
 
@@ -317,6 +325,10 @@ var cmdCreateRelation = function(commands, soptions,src_file) {
 		cmd_with_ref_view_commands.push('relation_date_end');
 	}
 
+	if (note_flag){
+		cmd_with_ref_view_commands.push('note');
+	}
+
 	Array.prototype.push.apply(cmd_with_ref_view_commands,search_dialog_commands);
 
 	self[cmd_with_ref_view] = {
@@ -368,6 +380,10 @@ var cmdCreateRelation = function(commands, soptions,src_file) {
 		//relation_commands.push('relation_date_end');
 	}
 
+	if (note_flag){
+		cmd_search_dialog_commands.push('note');
+	}
+
 	Array.prototype.push.apply(cmd_search_dialog_commands,search_dialog_commands);
 
 	if (cmd_search_dialog_commands.length > 1){
@@ -390,6 +406,8 @@ var cmdCreateRelation = function(commands, soptions,src_file) {
 	if (jQuery.isArray(key)){
 		key_search = key[0];
 	}
+
+
 	var cmd_search_opts = {
 		'x-generator' : 'cmdCreateRelation',
 		'key' : 'tmp:' + key_search,
@@ -404,6 +422,7 @@ var cmdCreateRelation = function(commands, soptions,src_file) {
 		'close_button' : '#b_w5',
 		'display_command' : cmd_view,
 		'new_ojbect_dialog_stack_pop_on_create':new_ojbect_dialog_stack_pop_on_create,
+		'skip_title_for_new_object':skip_title_for_new_object,
 		//'throw_event_object_search_finish':true,
 		//'relation_commands': relation_commands
 	};

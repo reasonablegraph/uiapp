@@ -167,6 +167,7 @@ var	publications_map = {
 	 };
 
 var	media_type_map = {
+		'undefined':'undefined',
 		'manifMediaTypeTable_s':'audio',
 		'manifMediaTypeTable_c':'computer',
 		'manifMediaTypeTable_h':'microform',
@@ -180,6 +181,7 @@ var	media_type_map = {
 	 };
 
 var	carrier_type_map = {
+ 'undefined':'Undefined',
  'manifCarrierTypeTable_sg':'Audio carriers - audio cartridge',
  'manifCarrierTypeTable_se':'Audio carriers - audio cylinder',
  'manifCarrierTypeTable_sd':'Audio carriers - audio disc',
@@ -359,6 +361,12 @@ var	periodic_publication_type_map = {
    };
 
 
+var item_type_map_pdf= {
+		'undefined':'Undefined',
+		'pdf':'PDF scanned',
+		'daisy':'PDF OCR',
+};
+
 var periodic_publication_type_channel_map = {
 		'undefined':'Undefined',
 		'Printed':'Printed',
@@ -395,7 +403,7 @@ var authority_level_establish_extend_map = {
 }
 
 var organization_type_map  = {
-		'Undefined': 'Undefined type of organization',
+		'undefined': 'Undefined type of organization',
 		'OrganizationTypeUnknown': 'Unknown type organization',
 		'OrganizationTypeSport': 'Sports organization',
 		'OrganizationTypeOther': 'Other type organization',

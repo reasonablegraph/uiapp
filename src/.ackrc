@@ -1,0 +1,5 @@
+### Directories to ignore
+
+
+
+--ignore-file=match:/\.orig$/

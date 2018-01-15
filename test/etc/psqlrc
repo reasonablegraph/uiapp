@@ -1,0 +1,7 @@
+\set QUIET 1
+
+\pset null '␀'
+
+
+\set QUIET 0
+

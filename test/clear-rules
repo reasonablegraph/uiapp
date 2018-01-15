@@ -1,0 +1,5 @@
+#!/bin/bash
+
+
+if [ -d /tmp/rules/ ] && [ ! -h /tmp/rules ] ;then  sudo rm -rf /tmp/rules/ ;fi
+

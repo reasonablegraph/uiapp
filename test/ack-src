@@ -1,0 +1,2 @@
+#!/bin/bash
+ack "$@"  ./testrg.js ./testrg-phantom.js  ./client-before.js  ./client-after.js

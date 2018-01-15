@@ -44,6 +44,7 @@ grunt graph-show-steps
 
       --neighbourhood=true /false/item_id
       --inferred=true /false
+      --onlytestnodes=true /false
 --------------------------------------------------
 -- install
 --------------------------------------------------
@@ -58,4 +59,7 @@ grunt dump-options
 dump-config
 dump-config-raw
 dump-global
+dump-arc
+dump-arc_rules
+dump-arc_solr
 

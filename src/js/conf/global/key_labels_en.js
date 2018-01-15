@@ -152,6 +152,7 @@ var key_labels = {
 'ea:auth:Participation_in_events':'Participation in events',
 'ea:authBiographical_Work:Data_Text':'Information Data',
 'ea:auth:person_name_other_lang':'Person name in other language',
+'ea:loginUser:':'Login Name',
 
 
 /*********** Auth_family **********/
@@ -255,6 +256,7 @@ var key_labels = {
 'ea:auth:Organization_Reopening':'Reopening',
 'ea:auth:Organization_Subordinate_Unit':'Subordinate unit',
 'authOrganizationAttributes':'Type of organization',
+'relation_geographical_location':'Geographical location',
 
 
 /*********** Auth_Manifestation **********/
@@ -369,6 +371,20 @@ var key_labels = {
 'ea:manif:digital-item':'Digital item',
 
 
+'Header_Manifestation_scorp':'Book Fields',
+'Header_Manifestation_Control_scorp':'Book - Control Fields',
+'ea:manif:Header_Information_scorp':'Book -  Information Fields',
+'ea:auth:Manifestation_Header_Cataloging_scorp':'Book - Cataloging Fields',
+'ea:manif:Header_Work_Manifestation_scorp':'Work – Book',
+'ea:manif:Header_scorp':'Book',
+'ea:manif:Header_Title_scorp':'Book - Title Fields',
+'ea:manif:Header_Basic_scorp':'Book - Basic Fields',
+'ea:manif:Header_Additional_scorp':'Book - Additional Fields',
+'ea:manif:Header_Work_Expression_scorp':'Work contained in Book',
+'ea:manif:Header_Contributors_scorp':'Book - Contributors',
+'ea:manif:Header_Subjects_scorp':'Book - Keywords',
+'ea:manif:Header_Relations_scorp':'Book - Relations',
+'work-expression_scorp':'Work',
 
 
 
@@ -466,7 +482,7 @@ var key_labels = {
 'ea:expres:Header_Information':'Expression - Information Fields',
 'ea:expres:Header_Contributors':'Expression - Contributors',
 'ea:expres:Header_Subjects':'Expression - Subjects',
-'ea:expres:title':'Τίτλος Expression',
+'ea:expres:title':'Title of Expression',
 'ea:expres:Form':'Form of expression',
 'ea:expres:Content':'Content type Expression',
 'ea:expres:Language':'Language',
@@ -650,6 +666,7 @@ var key_labels = {
 'digital_item_relations_fields':'Digital Item - Relations',
 'ea:item:title':'Original Title',
 'ea:item:type':'Type of item',
+'ea:item:type_pdf':'Type of pdf',
 'ea:item:location':'Location',
 'ea:item:sublocation':'Sublocation',
 'ea:item:collection':'Collection',
@@ -749,6 +766,7 @@ var key_labels = {
 'new_place':'New Place',
 'work_title_specific':'Work description',
 'contributor_title_specific':'Relation note',
+'note':'Note',
 'relation_note':'Relation note',
 'place_title_specific':'Place description',
 'note_public':'Note',

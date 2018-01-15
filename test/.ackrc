@@ -1,0 +1,4 @@
+### Directories to ignore
+
+--ignore-file=match:/\.orig$/
+--ignore-directory=is:tmp

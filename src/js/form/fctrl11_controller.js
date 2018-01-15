@@ -68,19 +68,20 @@ function FormControler(rootElement, data, commands, key_labels) {
 
   this.dialog_show_prev_on_close = true;
   this.extend_windows_stack = new ExtendWindowsStack();
-  this.subitems_keys = {};
+	this.defaultNetErrorHandler = function(jqXHR, textStatus, errorThrown){
+		self.unblockUI();
+		alert("ERROR ITEM NOT CREATED: " + textStatus);
+  }
 
   //this.tabindex=0;
   this.c1 = 0;
   this.c2 = 0;
   this.c3 = 0;
   this.generate_functions = {};
-  this.validate_functions = {};
   this.readers = {};
   this.weight = 0;
 
   this.ndata = {};
-  this.msgContext = new MessageContext();
   var self = this;
   //console.log(data);
   ////var maxi = 0;
@@ -200,13 +201,6 @@ function FormControler(rootElement, data, commands, key_labels) {
 // FormControler.prototype.getNextTabIndex= function(){
 // return this.tabindex++;
 // };
-FormControler.prototype.newMessageContext = function() {
-  this.msgContext = new MessageContext();
-  return this.msgContext;
-};
-FormControler.prototype.getMessageContext = function() {
-  return this.msgContext;
-};
 
 FormControler.prototype.setReader = function(reader) {
   this.readers[reader.id] = reader;
@@ -791,6 +785,7 @@ FormControler.prototype._act_addSection = function(container, options) {
   var add_button_label = options.add_button_label === undefined ? 'add' : options.add_button_label;
   var add_button_advanced = options.add_button_advanced === undefined ? false : options.add_button_advanced;
   var add_button_advanced_label = options.add_button_advanced_label === undefined ? 'expand' : options.add_button_advanced_label;
+  var specialized_sect = options.specialized_sect === undefined ? false : options.specialized_sect;
   var change_level = options.change_level === undefined ? null : options.change_level;
   var use_current_container_as_root = options.use_current_container_as_root === undefined ? false : options.use_current_container_as_root;
   var el_id = options.id;
@@ -844,6 +839,10 @@ FormControler.prototype._act_addSection = function(container, options) {
     el.attr('class', 'hsection ' + el_class);
   }
 
+  if (specialized_sect) {
+    el.addClass('specialized_sect');
+  }
+
 
   //el.text(label);
   var div = jQuery('<div>');
@@ -852,6 +851,9 @@ FormControler.prototype._act_addSection = function(container, options) {
   div.addClass('level_' + level);
   //div.data('hsection_level',level);
 
+  if (specialized_sect) {
+  	div.addClass('specialized_sect');
+  }
 
 
   //  if (pl.chk(cmd)){
@@ -1134,12 +1136,6 @@ FormControler.prototype._act_cmdGroup = function(container, options) {
   });
 };
 
-FormControler.prototype._act_addValidateFunction = function(container, options) {
-  var fnKey = options.fnKey;
-  var fn = options.fn;
-
-  this.validate_functions[fnKey] = fn;
-};
 
 FormControler.prototype._act_addGenerateFunction = function(container, options) {
   var fnKey = options.fnKey;
@@ -1157,7 +1153,7 @@ FormControler.prototype._act_execJs = function(container, options) {
 
 
 FormControler.prototype._act_extend = function(container, options) {
-  console.log("_act_extend",options);
+  //console.log("_act_extend",options);
   var fid = pl.chk(options['field_id']) ? options['field_id'] : null;
   var self = this;
   var commands = options.commands;
@@ -1792,136 +1788,6 @@ FormControler.prototype.openPreviusDialog = function() {
 }
 
 
-/**
- *
- * @returns {MessageContext}
- */
-FormControler.prototype.validateSubitems = function(rootModel,messageContext) {
-  var self = this;
-  var msgContext = messageContext ? messageContext : this.msgContext;
-  console.log("####SUBITEM####: ", rootModel);
-  var subItemRoots = this.subItemRootModels(rootModel);
-  for (var i in subItemRoots){
-    var rm = subItemRoots[i];
-    var rmkey = rm.key();
-    //console.log("#1 ",rmkey);
-    //if (rmkey == 'ea:manifestation:tmp' || rmkey =='ea:expression:tmp' || rmkey == 'ea:subj:'){
-    if (rmkey == 'ea:manifestation:tmp' || rmkey =='ea:expression:tmp'  || rmkey == 'ea:subj:' ){
-        //console.log("#SKIP ",rmkey);
-        continue;
-    }
-    //console.log("@@@@@@@@@@@@@@@@@@: ", rm.id(),rm.key(),rm.value());
-    if (jQuery.trim(rm.value())) {
-      var path = '';
-      if (rm.link()) {
-        var pm = self.getFieldModel(rm.link());
-        if (pm) {
-          if (pm.link()) {
-            path += '../ ';
-          }
-          path += pm.value();
-          path += ' / ';
-        }
-      }
-      path += rm.value();
-      //console.log('ERROR SUBITEM:',rm.id(),rm.key(),rm.value(),rm);
-      msgContext.addError('UNCONNECTED OBJECT: ' + path);
-    }
-  }
-  return msgContext;
-}
-
-/**
- * validate (iparxei 3exoristi generate)
- */
-FormControler.prototype.validate = function() {
-  var msgContext = this.msgContext;
-  var self = this;
-  console.log("VALIDATE");
-  var title_model = this.getFirstFieldModel('dc:title:');
-  if (title_model == null) {
-    //    msgContext.addError("Missing Title model");
-    msgContext.addError(messages_labels['missing_title_model']);
-  } else {
-    var title = title_model.value();
-    if (!pl.chk(title)) {
-      //      msgContext.addError("Missing Title");
-      msgContext.addError(messages_labels['missing_title']);
-    }
-  }
-
-
-  this.validateSubitems();
-  //msgContext.addError('DEVEL ERROR');
-
-  console.log('VALIDATE FUNCTIONS');
-  jQuery.each(self.validate_functions, function(key, fn) {
-    console.log("exec validate_function", key);
-    fn.call(self);
-  });
-
-
-  if (false) {
-    //TODO: na gini pluguble me commands opos to generate ke na mpoun eki oi contributors
-    // var contributors1 = this.getFieldModelsWithKeyPrefix('dc:contributor:','ea:contributor:');
-    // console.log("@1",contributors1);
-    var contributors_keys = Object.keys(contributors_printed);
-    //console.log("@2",contributors_keys);
-    var contributors = [];
-    for (i in contributors_keys) {
-      var ck = contributors_keys[i];
-      var tmps = this.getFieldModelsByKey(ck);
-      contributors = contributors.concat(tmps);
-    }
-    // console.log("@3",contributors);
-    // throw "DEBUG ERROR";
-    for (i in contributors) {
-      var c = contributors[i];
-      var name = c.value();
-      //console.log("@1",i,name,c);
-      if (name != null && !pl.chk(c.refItem())) {
-        //console.log("@2",i,name,c);
-        id = c.id();
-        var ct = this.getFirstFieldModel('ea:contributor-type:', id);
-        var pt = this.getFirstFieldModel('ea:name:_type', id);
-        //console.log("ct",ct.value());
-        // console.log("pt",pt);
-        if (ct == null || !pl.chk(ct.value()) || ct.value() == 'undefined') {
-          //error
-          msgContext.addWarning('please add contributor type to contributor [ ' + name + ' ]');
-        } else if (ct.value() == 'person' && pt.value() == 'surname_first' && name.indexOf(",") === -1) {
-          //error
-          msgContext.addWarning('contributor [ ' + name + "] has type 'Person (Surname fist)' but comma not found");
-        } else if (ct.value() != 'person' && name.indexOf(",") !== -1) {
-          msgContext.addWarning('contributor [ ' + name + "] with comma in name found in different type than 'Person'");
-        }
-      }
-    }
-  }
-
-
-
-  //   msgContext.addWarning('DEBUG');
-
-  // foreach ($this->values as $key => $kvalues) {
-  // foreach ($kvalues as $k => $v) {
-  // $link_id = $v[8];
-  // if (! empty($link_id)){
-  // $parent = $this->getValuebyClientId($link_id);
-  // if ($parent == null){
-  // $record_id = $v[6];
-  // $this->deleteByRecordId($record_id);
-  // }
-  // }
-  // }
-  // }
-
-  if (msgContext.hasMessages()) {
-    return 'messages';
-  }
-
-  return 'valid';
-};
 
 /**
  * @return
@@ -1985,23 +1851,6 @@ FormControler.prototype.generate = function() {
 
 
 
-FormControler.prototype.unblockUI = function() {
-  jQuery.unblockUI();
-}
-
-FormControler.prototype.blockUI = function() {
-  jQuery.blockUI({
-    message: '<div></div>',
-    css: {
-      'padding': '20px',
-      'opacity': '1',
-      'background-image': 'url(/_assets/img/ajax-loader-7.gif)',
-      'background-repeat': 'no-repeat',
-      'background-position': 'center center',
-      'z-index': '200000'
-    }
-  });
-}
 
 
 
@@ -2321,83 +2170,25 @@ FormControler.prototype.setupForm = function(formOptions) {
 };
 
 
-/**
- * epistrefei ta not connected
- * @param rootModel
- * @returns {Array}
- */
-FormControler.prototype.subItemRootModels = function (rootModel) {
-  var self = this;
-  var subitems_keys = this.subitems_keys;
-  var roots = [];
-  var models = (rootModel) ? this.getSubTree(rootModel) : this.getModelsAll();
-  for (var id in models) {
-    var m = models[id];
-    //console.log('CHK1', m.id(), m.key(), m.value(), m.refItem());
-    var key = m.key();
-    //if (inSubitemKeys(key) && jQuery.trim(m.value()) && !m.refItem()) {
-    //if (m.get('create_subitem') && jQuery.trim(m.value()) && !m.refItem()) {
-    //sub-root":true //create_subitem
-    if (m.get('sub-root') && !m.refItem()) {
-        console.log('SUBITEM_ROOT', m.id(), m.key(), m.value(), m.refItem());
-        roots.push(m);
-    }
-  }
-  return roots;
+
+FormControler.prototype.unblockUI = function() {
+	if (jQuery['unblockUI'] !== undefined) {
+		jQuery.unblockUI();
+	}
 }
 
-FormControler.prototype.subItemRootModelsOLD = function () {
-  //console.log("subItemRootModels");
-  var self = this;
-  var subitems_keys = this.subitems_keys;
-  var roots = [];
-  for (var j in subitems_keys) {
-    var smodels = fc.getFieldModelsByKey(j);
-    //console.log("KEY",j);
-    for (var i in smodels) {
-      //var tmp = {}; //gia ton deftero tropo
-      var rootModel = smodels[i];
-      console.log("M:",j,rootModel.value(),rootModel.link(),rootModel.refItem());
-      var value = jQuery.trim(rootModel.value());
-      if (value) {
-
-        if (!rootModel.refItem()) { //entopizi ola osa  den ine sindedemena
-          //console.log("#RM: ", rootModel.id(), rootModel.key(), rootModel.value());
-          roots.push(rootModel);
-        }
-
-        if (false) {
-          //entopizi mono afta pou exoun childs me object type gia dimiourgia neou komvou
-          self.traverseNode(rootModel, function (node) {
-            //console.log("T:",node.get('level'),node.id(),node.key(),node.value(),node);
-            if (node.key() == 'ea:obj-type:') {
-              var level = node.get('level');
-              if (!tmp[level]) {
-                tmp[level] = [];
-              }
-              tmp[level].push(node);
-              //console.log("@PUSH1: ", node.key(), node.value());
-            }
-          });
-          keys = [];
-          for (k in tmp) {
-            keys.push(k);
-          }
-          keys.sort();
-          for (var ii in keys) {
-            var kk = keys[ii];
-            for (var jj in tmp[kk]) {
-              //console.log("@PUSH2: ", ii,kk,jj);
-              roots.push(self.getFieldModel((tmp[kk][jj]).link()));
-            }
-          }
-        }
-
-      }
-    }
+FormControler.prototype.blockUI = function() {
+  if (jQuery['blockUI'] !== undefined) {
+	  jQuery.blockUI({
+		  message: '<div></div>',
+		  css: {
+			  'padding': '20px',
+			  'opacity': '1',
+			  'background-image': 'url(/_assets/img/ajax-loader-7.gif)',
+			  'background-repeat': 'no-repeat',
+			  'background-position': 'center center',
+			  'z-index': '200000'
+		  }
+	  });
   }
-  return roots;
-
 }
-
-

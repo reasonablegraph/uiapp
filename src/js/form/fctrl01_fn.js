@@ -14,10 +14,18 @@ function createSelectElement( options ){
 	  var select_values = options.select_values;
     var default_selection = options.default_selection === undefined ? null: options.default_selection;
     var onSelect = options.onSelect === undefined  ? null : options.onSelect;
+    var selectReady = options.select_ready === undefined  ? null : options.select_ready;
+    var select_id = options.select_id === undefined  ? null : options.select_id;
+
     var readOnly = options.read_only === undefined ? false : options.read_only;
 		var size=options.size === undefined ? null : options.size;
 
     var inputE = jQuery('<select>');
+
+    if (select_id){
+    inputE.attr('id', select_id);
+    }
+
     if (readOnly){
        inputE.attr("disabled", "disabled");
        //inputE.attr("readonly", "readonly");
@@ -52,6 +60,11 @@ function createSelectElement( options ){
     	//console.log("DEFAULT:",default_selection);
       inputE.val(default_selection);
     }
+
+    if (pl.chk(selectReady)){
+    	inputE.ready(selectReady);
+     }
+
     //inputE.select2({width:'copy'});
     return inputE;
 }

@@ -1,0 +1,42 @@
+{
+
+ "validation-version":"1",
+
+ "generated": "2017-03-05T22:24:01.422982+00:00",
+
+"vertices": {
+ "PERSON1":{"id" : 8885, "label" : "Doe,john", "title" : "Doe,john", "obj_type" : "auth-person", "jdata" : {"neighbourhood":{"def":[8886],"item":[8886]},"nMethod":"procActor","opac1":{"public_title":{"title":"Doe,john","id":8885},"title":"Doe,john","obj_type":"auth-person"},"opac2":{"Title_punc":"Doe,john"},"label":"Doe,john","title":"Doe,john","solr_data":{"id":"8885","object_type":"auth-person","record_type":"person","title":"Doe,john","label":"Doe,john","secondaryTitles":[null],"create_dt":{"date":"2017-03-05 22:23:57.000000","timezone_type":2,"timezone":"Z"}}}},
+ "PERSON2":{"id" : 8886, "label" : "Doe, Jane", "title" : "Doe, Jane", "obj_type" : "auth-person", "jdata" : {"neighbourhood":{"def":[8885],"item":[8885]},"nMethod":"procActor","opac1":{"public_title":{"title":"Doe, Jane","id":8886},"title":"Doe, Jane","obj_type":"auth-person"},"opac2":{"Title_punc":"Doe, Jane"},"label":"Doe, Jane","title":"Doe, Jane","solr_data":{"id":"8886","object_type":"auth-person","record_type":"person","title":"Doe, Jane","label":"Doe, Jane","secondaryTitles":[null],"create_dt":{"date":"2017-03-05 22:23:58.000000","timezone_type":2,"timezone":"Z"}}}}
+
+},
+"relations": {
+ "r1":{"from" : "PERSON1", "to" : "PERSON2", "element" : "ea:relation:PersonOtherChild", "level" : 0, "link" : null, "inferred" : true, "rel" : 2, "text_value" : "Doe, Jane", "parent_element" : null, "parent_value" : null},
+ "r2":{"from" : "PERSON2", "to" : "PERSON1", "element" : "ea:relation:PersonOtherParent", "level" : 0, "link" : null, "inferred" : false, "rel" : 2, "text_value" : "Doe,john", "parent_element" : null, "parent_value" : null}
+
+},
+"properties": {
+ "a1":{"from_key" : "PERSON1", "element" : "dc:title:", "text_value" : "Doe,john", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 1, "link" : null, "level" : 0, "data" : null},
+ "a2":{"from_key" : "PERSON1", "element" : "ea:obj-type:", "text_value" : "auth-person", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 2, "link" : null, "level" : 0, "data" : null},
+ "a3":{"from_key" : "PERSON1", "element" : "ea:status:", "text_value" : "finish", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 3, "link" : null, "level" : 0, "data" : null},
+ "a4":{"from_key" : "PERSON1", "element" : "ea:test:key1", "text_value" : "PERSON1", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 4, "link" : null, "level" : 0, "data" : null},
+ "a5":{"from_key" : "PERSON1", "element" : "dc:date:accessioned", "text_value" : "2017-03-05T22:23:57Z", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : null, "link" : null, "level" : 0, "data" : null},
+ "a6":{"from_key" : "PERSON1", "element" : "dc:date:available", "text_value" : "2017-03-05T22:23:57Z", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : null, "link" : null, "level" : 0, "data" : null},
+ "a7":{"from_key" : "PERSON1", "element" : "dc:date:issued", "text_value" : "2017-03-05", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : null, "link" : null, "level" : 0, "data" : null},
+ "a8":{"from_key" : "PERSON1", "element" : "dc:description:provenance", "text_value" : "Submitted by admin on 2017-03-05T22:23:57Z (UTC)", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : null, "link" : null, "level" : 0, "data" : null},
+ "a9":{"from_key" : "PERSON1", "element" : "dc:identifier:uri", "text_value" : "http://laravel.local/archive/item/8885", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : null, "link" : null, "level" : 0, "data" : null},
+ "a10":{"from_key" : "PERSON1", "element" : "ea:identifier:id", "text_value" : "8885", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : null, "link" : null, "level" : 0, "data" : null},
+ "a11":{"from_key" : "PERSON1", "element" : "ea:relation:PersonOtherChild", "text_value" : "Doe, Jane", "inferred" : true, "ref_key" : "PERSON2", "relation" : 2, "lid" : null, "link" : null, "level" : 0, "data" : {"data":{"ref_label":"Doe, Jane"}}},
+ "a12":{"from_key" : "PERSON2", "element" : "dc:title:", "text_value" : "Doe, Jane", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 1, "link" : null, "level" : 0, "data" : null},
+ "a13":{"from_key" : "PERSON2", "element" : "ea:obj-type:", "text_value" : "auth-person", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 2, "link" : null, "level" : 0, "data" : null},
+ "a14":{"from_key" : "PERSON2", "element" : "ea:status:", "text_value" : "finish", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 3, "link" : null, "level" : 0, "data" : null},
+ "a15":{"from_key" : "PERSON2", "element" : "ea:test:key1", "text_value" : "PERSON2", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : 4, "link" : null, "level" : 0, "data" : null},
+ "a16":{"from_key" : "PERSON2", "element" : "ea:relation:PersonOtherParent", "text_value" : "Doe,john", "inferred" : false, "ref_key" : "PERSON1", "relation" : 2, "lid" : 5, "link" : null, "level" : 0, "data" : {"data":{"rel_type":"locked","org_value":"Doe,john","ref_label":"Doe,john","ref_ot":"auth-person"}}},
+ "a17":{"from_key" : "PERSON2", "element" : "dc:date:accessioned", "text_value" : "2017-03-05T22:23:58Z", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : null, "link" : null, "level" : 0, "data" : null},
+ "a18":{"from_key" : "PERSON2", "element" : "dc:date:available", "text_value" : "2017-03-05T22:23:58Z", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : null, "link" : null, "level" : 0, "data" : null},
+ "a19":{"from_key" : "PERSON2", "element" : "dc:date:issued", "text_value" : "2017-03-05", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : null, "link" : null, "level" : 0, "data" : null},
+ "a20":{"from_key" : "PERSON2", "element" : "dc:description:provenance", "text_value" : "Submitted by admin on 2017-03-05T22:23:58Z (UTC)", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : null, "link" : null, "level" : 0, "data" : null},
+ "a21":{"from_key" : "PERSON2", "element" : "dc:identifier:uri", "text_value" : "http://laravel.local/archive/item/8886", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : null, "link" : null, "level" : 0, "data" : null},
+ "a22":{"from_key" : "PERSON2", "element" : "ea:identifier:id", "text_value" : "8886", "inferred" : false, "ref_key" : null, "relation" : null, "lid" : null, "link" : null, "level" : 0, "data" : null}
+
+}
+}

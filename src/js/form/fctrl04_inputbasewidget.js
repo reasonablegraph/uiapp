@@ -63,7 +63,20 @@ InputBaseWidget._setupPropsSelect = function(options){
 	this.langSelectE  = null;
 	this.spanLang = null;
 
-
+	if (options.copy_bnt){
+		bnt_label = options.copy_bnt['label'];
+		fn_copy = options.copy_bnt['click_handler'];
+		var inputCE = this.inputCE;
+		var copy_button = jQuery('<div class="copy_button"><p class="init">'+bnt_label+'</p></div>');
+		copy_button.appendTo(inputCE);
+		copy_button.click(fn_copy);
+//		var fn_copy = function(e3){
+//		e3.preventDefault();
+//		e3.stopPropagation();
+//		text_value = inputCE.find("input").first().val();
+//		inputCE.closest("#step1f").find('[key="ea:manifestation:tmp"]').find("input").val(text_value);
+//	};
+	}
 
 	if (options.lang_select || options.prescribed_select){
 		var def_lang = language_default;

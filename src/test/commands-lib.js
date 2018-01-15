@@ -11,4 +11,18 @@ function consoleLog(obj){
 	phantomTask('console.log',obj);
 }
 
-
+// var console ={};
+// console.log = function(){
+// 	var alen = arguments.length;
+// 	if (alen == 1){
+// 		phantomTask('console.log',arguments[0]);
+// 		return;
+// 	}
+//
+// 	var args = [];
+// 	for (var i = 0; i < alen; i++) {
+// 		args.push(arguments[i]);
+// 	}
+//
+// 	phantomTask('console.log',args);
+// }

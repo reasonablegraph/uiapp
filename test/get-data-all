@@ -1,0 +1,9 @@
+#!/bin/bash
+
+OUT_FILE=/tmp/data.txt
+#cat ./sql/data-all.sql |psql  $ARC_DB | ./unicode-unescape > $OUT_FILE
+cat ./sql/data-all.sql |psql  $ARC_DB > $OUT_FILE
+echo "data:  $OUT_FILE"
+less -S $OUT_FILE
+ 
+#cat ./sql/data-all.sql |psql  $ARC_DB 

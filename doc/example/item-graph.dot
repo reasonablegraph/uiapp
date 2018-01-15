@@ -1,0 +1,41 @@
+digraph finite_state_machine {
+rankdir=LR;
+"oi:175" [shape = "Mrecord", label=<
+
+<table  border="0" >
+<tr><td align="left">urn:</td><td align="left">oi:175</td></tr>
+<tr><td align="left">dc:title:</td><td align="left">work title</td></tr>
+<tr><td align="left">gs:obj-type:</td><td align="left">work</td></tr>
+<tr><td align="left">dc:author:</td><td align="left">oi:177</td></tr>
+</table>
+
+>];
+"oi:176" [shape = "Mrecord", label=<
+
+<table  border="0" >
+<tr><td align="left">urn:</td><td align="left">oi:176</td></tr>
+<tr><td align="left">dc:title:</td><td align="left">book title</td></tr>
+<tr><td align="left">gs:obj-type:</td><td align="left">manifestation</td></tr>
+<tr><td align="left">gs:edition:</td><td align="left">statement</td></tr>
+<tr><td align="left">↳ gs:reminder:</td><td align="left">remainder</td></tr>
+<tr><td align="left">gs:work:</td><td align="left">oi:175</td></tr>
+</table>
+
+>];
+
+"oi:177" [shape = "Mrecord", label=<
+
+<table  border="0" >
+<tr><td align="left">urn:</td><td align="left">oi:177</td></tr>
+<tr><td align="left">dc:title:</td><td align="left">John  Doe</td></tr>
+<tr><td align="left">gs:obj-type:</td><td align="left">person</td></tr>
+</table>
+
+>];
+
+"oi:176" -> "oi:175" [ label = "gs:work:"];
+"oi:175" -> "oi:177" [ label = "dc:author:"];
+"oi:176" -> "oi:177" [ label = "dc:author:infered"];
+
+}
+

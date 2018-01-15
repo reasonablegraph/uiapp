@@ -1,0 +1,50 @@
+
+----------------------------------------------------
+FieldModelAccessor
+----------------------------------------------------
+
+consoleDump  ()
+createFieldModel  (key,value,link)
+getFieldModel  (fid)
+getFieldModelOrCreate  (key,link,defaultValue)
+getFieldModelsByKey  (key)
+getFieldModels  (key,link)
+getFieldModelsOrCreate  (key,link,defaultValue)
+getFieldModelsWithKeyPrefix  (keyPrefix)
+getFirstFieldModelByKey  (key)
+getFirstFieldModel  (key,link)
+getRootFieldModels  ()
+getSubTree  (model)
+moveupModel  (id)
+newId  ()
+newWeight  ()
+remoteCreateSubItem  (rootModel,options)
+removeModel  (id)
+removeModels  (models)
+removeModelsObservers  (id)
+removeModelsTree  (id)
+removeOrphanModels  ()
+traverseNode  (node,handler)
+traverseTree  (handler)
+
+
+----------------------------------------------------
+FieldModel
+----------------------------------------------------
+
+addProperty  (k,v)
+clear  ()
+clearServerValues  ()
+data  (data)
+eqField  (key,link)
+get  (key)
+id  (i)
+isEmpty  ()
+key  (k)
+keys  (ks)
+lang  (g)
+link  (l)
+props  (p)
+put  (key,value)
+refItem  (f)
+value  (v)

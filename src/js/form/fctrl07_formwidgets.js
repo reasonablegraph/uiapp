@@ -234,7 +234,7 @@ FormWidgets.prototype.setupInput = function(model, local_options, inputContainer
       tmp.text(label + ':');
       tmp.click(function(e){
         e.preventDefault();
-        showUrlInDialog('/prepo/field_help?key=' + key,key);
+        showHelp('/prepo/field_help?key=' + key,key);
         return false;
       });
       tmp.appendTo(labelE);

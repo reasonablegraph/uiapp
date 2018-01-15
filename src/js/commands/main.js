@@ -108,7 +108,7 @@ cmdCreate('status_finish', {
 			action : 'setupField',
 			opts : {
 				key : 'ea:status:',
-				label : 'status',
+				label : key_labels['status'],
 				type : 'select',
 				default_selection: 'finish',
 				select_values:{
@@ -120,7 +120,7 @@ cmdCreate('status_finish', {
 					'private':'private',
 				},
 				read_only:false,
-				show_help : false,
+				show_help : true,
 				width:'120px',
 			}
 		});
@@ -261,6 +261,36 @@ cmdCreate('header_type',{
 			},
   		}
 	});
+
+
+var specialized_fields_closed = true;
+cmdCreate('header_type_2',{
+  		action:'addSection',
+  		opts:{
+  			skey:'type',
+  			label:'TYPE',
+  			level:1,
+  			id:'top_sect',
+  			add_button:true,
+				add_button_label:key_labels['specialized fields'],
+				'click_handler': function(e){
+					e.preventDefault();
+					e.stopImmediatePropagation();
+					if (specialized_fields_closed){
+						jQuery('.specialized_sect').show();
+						var button_label = jQuery('#top_sect button').text().replace('+', '-');
+						jQuery('#top_sect button').text(button_label)
+						specialized_fields_closed = false;
+					} else {
+						jQuery('.specialized_sect').hide();
+						var button_label = jQuery('#top_sect button').text().replace('-', '+');
+						jQuery('#top_sect button').text(button_label)
+						specialized_fields_closed = true;
+					}
+				},
+  		}
+	});
+
 
 cmdCreate('header_collection',{
   		action:'addSection',
@@ -1271,12 +1301,6 @@ var fn_generate_title = function(fc){
 
 
 
-
-
-
-
-
-
 	cmdCreate('subtitle',{
 		action : 'setupField',
 		opts : jQuery.extend({},opts_text,{
@@ -1404,7 +1428,7 @@ var fn_generate_title = function(fc){
 			'label' : key_labels['issue'],
 			'type' : 'issue',
 			'show_help' : true,
-			'unique_parent_key':'marc:title-statement:title',
+//			'unique_parent_key':'marc:title-statement:title',
 			'width' : '303px',
 		}
 	});
@@ -3868,7 +3892,7 @@ cmdCreate('title_specific',{
 		action : 'setupField',
 		opts : {
 		'type' : 'text',
-		'show_help' : false,
+		'show_help' : true,
 		'key' : 'ea:title:specific',
 		'label' : 'title specific',
 		}
@@ -3886,6 +3910,14 @@ cmdCreate('title_specific_contributor',{
 	action : 'setupField',
   opts : jQuery.extend({},commands.title_specific.opts,{
   	'label' : key_labels['contributor_title_specific'],
+  	'show_help' : true,
+  })
+});
+
+cmdCreate('note',{
+	action : 'setupField',
+  opts : jQuery.extend({},commands.title_specific.opts,{
+  	'label' : key_labels['note'],
   	'show_help' : true,
   })
 });
@@ -4075,6 +4107,26 @@ cmdCreate('hidden_obj_type_person',{
 	});
 
 
+	cmdCreate('hidden_obj_type_digital_item',{
+		action : 'setupField',
+		opts : {
+			type : 'hidden',
+			key : 'ea:obj-type:',
+			value: 'digital-item',
+		}
+	});
+
+
+	cmdCreate('hidden_obj_type_physical_item',{
+		action : 'setupField',
+		opts : {
+			type : 'hidden',
+			key : 'ea:obj-type:',
+			value: 'physical-item',
+		}
+	});
+
+
 	cmdCreate('subject_title',{
 			action : 'setupField',
 			opts : {
@@ -4132,6 +4184,15 @@ cmdCreate('hidden_obj_type_person',{
 		}
 	});
 
+
+	cmdCreate('hidden_deprecated_id',{
+		action : 'setupField',
+		opts : {
+			type : 'hidden',
+			key : 'ea:deprecated:id',
+			value: 'empty',
+		}
+	});
 
 	cmdCreate('relation_date_start',{
 		action : 'setupField',

@@ -172,6 +172,7 @@ cmdCreate('digital_item_control_number',{
   });
 
 
+
 /*** digital_item type **************/
 /************************************/
 cmdCreate('item_type',{
@@ -181,8 +182,43 @@ cmdCreate('item_type',{
 		'label' : key_labels['ea:item:type'],
 		type : 'select',
 		select_values: item_type_map,
-		width:118,
-		float:'left',
+		width:228,
+		//width:118,
+		//float:'left',
+		select_id:'item_type',
+		on_select: function(e){
+			var item_type = jQuery('#item_type').val();
+			if (item_type == 'pdf'){
+				jQuery('#item_type').parent().parent().css('float','left');
+				jQuery('#item_type_pdf').parent().parent().css('display','block');
+			}else{
+				jQuery('#item_type_pdf').parent().parent().css('display','none');
+				jQuery('#item_type').parent().parent().css('float','none');
+			}
+		},
+	})
+});
+
+
+/*** digital_item type pdf **********/
+/************************************/
+cmdCreate('item_type_pdf',{
+	action : 'setupField',
+	opts : jQuery.extend({},opts_text,{
+		'key' : 'ea:item:type_pdf',
+		'label' : key_labels['ea:item:type_pdf'],
+		type : 'select',
+		select_values: item_type_map_pdf,
+		select_id:'item_type_pdf',
+		width:180,
+		select_ready: function(){
+			var item_type = jQuery('#item_type').val();
+			if (item_type == 'pdf'){
+				jQuery('#item_type').parent().parent().css('float','left');
+			}else{
+				jQuery('#item_type_pdf').parent().parent().css('display','none');
+			}
+		},
 	})
 });
 
@@ -196,11 +232,13 @@ cmdCreate('item_location',{
 		'label' : key_labels['ea:item:location'],
 		type : 'select',
 		select_values: item_location_map,
-		width:115,
-		'label-width':'100px',
+		width:228,
+		//width:115,
+		//'label-width':'100px',
 		float:'left',
 	})
 });
+
 
 /*** digital_item sublocation********/
 /************************************/
@@ -213,9 +251,10 @@ cmdCreate('item_sublocation',{
 		'read_only' : true,
 		select_values: item_sublocation_map,
 		width:180,
-		'label-width':'90px',
+//		'label-width':'90px',
 	})
 });
+
 
 /*** digital_item collection*********/
 /************************************/
@@ -226,7 +265,8 @@ cmdCreate('item_collection',{
 		'label' : key_labels['ea:item:collection'],
 		type : 'select',
 		select_values: item_collection_map,
-		width:385,
+		width:228,
+		//width:385,
 		float:'left',
 	})
 });
@@ -252,8 +292,8 @@ cmdCreate('item_partNumber',{
 			key:'ea:item:partNumber',
 			label:key_labels['ea:item:partNumber'],
 			show_help : true,
-			width:100,
-			"label-width":"140",
+			width:170,
+			//"label-width":"140",
 			}
 });
 
@@ -482,9 +522,10 @@ cmdCreate('item_url_private',{
 					'key':['ea:artifact-of:'],
 					'label':key_labels['ea:item:parent_item'],
 					'search_url':'/prepo/ws/search-manifestation',
-					'extend_commands' :  f_auth_manifestations_extend,
-					'new_button_label' : 'new manifestation',
+//					'extend_commands' :  f_auth_manifestations_extend,
+//					'new_button_label' : 'new manifestation',
 					'extend_primary_label' : key_labels['ea:item:title'],
+					'new_button_style':'visibility: hidden;',
 //					'display_inferred':true,
 				  root_options:{
 				  	select_key_width:'280px',

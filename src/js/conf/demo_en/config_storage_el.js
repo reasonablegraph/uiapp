@@ -523,6 +523,34 @@ var relation_organization_see_also_organization_map = {
 	'ea:relation:OrganizationParts' : 'Τμήματα',
 };
 
+var personal_name_not_used_map = {
+		'ea:auth:PersonNotUsedGivenName' : 'Αποδιδόμενο όνομα (δε χρησιμοποιείται)',
+		'ea:auth:PersonNotUsedOfficialName' : 'Επίσημο όνομα (δε χρησιμοποιείται)',
+		'ea:auth:PersonNotUsedReligionName' : 'Θρησκευτικό όνομα (δε χρησιμοποιείται)',
+		'ea:auth:PersonNotUsedPseudonymShared' : 'Κοινόχρηστο ψευδώνυμο (δε χρησιμοποιείται)',
+		'ea:auth:PersonNotUsedSecularName' : 'Κοσμικό όνομα (δε χρησιμοποιείται)',
+		'ea:auth:PersonNotUsedNameBeforeMarriage' : 'Όνομα πριν το συζυγικό (δε χρησιμοποιείται)',
+		'ea:auth:PersonNotUsedRealName' : 'Πραγματικό όνομα (δε χρησιμοποιείται)',
+		'ea:auth:PersonNotUsedMarriedName' : 'Συζυγικό όνομα (δε χρησιμοποιείται)',
+		'ea:auth:PersonNotUsedPseudonym' : 'Ψευδώνυμο (δε χρησιμοποιείται)',
+		'ea:auth:PersonNotUsedOther' : 'Άλλο όνομα (δε χρησιμοποιείται)',
+	};
+
+
+var personal_alternative_name_map = {
+		'ea:auth:PersonAlterGivenName' : 'Αποδιδόμενο όνομα (εναλλακτικό)',
+		'ea:auth:PersonAlterOfficialName' : 'Επίσημο όνομα (εναλλακτικό)',
+		'ea:auth:PersonAlterReligionName' : 'Θρησκευτικό όνομα (εναλλακτικό)',
+		'ea:auth:PersonAlterPseudonymShared' : 'Κοινόχρηστο ψευδώνυμο (εναλλακτικό)',
+		'ea:auth:PersonAlterSecularName' : 'Κοσμικό όνομα (εναλλακτικό)',
+		'ea:auth:PersonAlterNameBeforeMarriage' : 'Όνομα πριν το συζυγικό (εναλλακτικό)',
+		'ea:auth:PersonAlterRealName' : 'Πραγματικό όνομα (εναλλακτικό)',
+		'ea:auth:PersonAlterMarriedName' : 'Συζυγικό όνομα (εναλλακτικό)',
+		'ea:auth:PersonAlterPseudonym' : 'Ψευδώνυμο (εναλλακτικό)',
+		'ea:auth:PersonAlterOtherName' : 'Άλλο όνομα (εναλλακτικό)',
+	};
+
+
 var relation_person_see_map = {
 	'ea:relation:PersonAlterWork' : 'Αποδιδόμενο όνομα',
 	'ea:relation:PersonAlterOfficial' : 'Επίσημο όνομα',
@@ -537,7 +565,6 @@ var relation_person_see_map = {
 };
 
 var relation_person_see_map_alter = {
-
 	'ea:relation:PersonAlterWork_alter' : 'Αποδιδόμενο όνομα',
 	'ea:relation:PersonAlterOfficial_alter' : 'Επίσημο όνομα',
 	'ea:relation:PersonAlterReligion_alter' : 'Θρησκευτικό όνομα',
@@ -811,7 +838,7 @@ var	subject_type_map = {
 	'ea:subj:object':'Object',
 	'ea:subj:event':'Event',
 	'ea:subj:place':'Place',
-	'ea:subj:form':'Form',
+	'ea:subj:form':'Genre',
 };
 
 
@@ -822,7 +849,7 @@ var	primary_subject_type_map = {
 	'ea:subj:object:primary':'Object',
 	'ea:subj:event:primary':'Event',
 	'ea:subj:place:primary':'Place',
-	'ea:subj:form:primary':'Form',
+	'ea:subj:form:primary':'Genre',
 };
 
 

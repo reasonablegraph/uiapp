@@ -13,6 +13,11 @@ function FieldModelAccessor(data){
 	 *
 	 */
 	this.ndata = data;
+	this.defaultNetErrorHandler = null;
+	this.msgContext = new MessageContext();
+	this.validate_functions = {};
+	this.subitems_keys = {};
+
 }
 
 /**
@@ -535,7 +540,7 @@ FieldModelAccessor.prototype.traverseNode = function(node,handler){
  * @returns {Void}
  */
 FieldModelAccessor.prototype.removeOrphanModels = function(){
-  console.log("#REMOVE ORPHAN MODELS#");
+  //console.log("#REMOVE ORPHAN MODELS#");
   var dc = 0;
   var deleteFlag = false;
   do {
@@ -575,12 +580,14 @@ FieldModelAccessor.prototype.removeOrphanModels = function(){
 * @param options
 */
 FieldModelAccessor.prototype.remoteCreateSubItem = function(rootModel,options){
-	var jobs = this.remoteCreateSubItemJobs(rootModel,options);
-	sequence = jQuery.Deferred.Sequence( jobs );
+	//console.log('remoteCreateSubItem',rootModel);
+	var context={};
+	var remote_jobs = this.remoteCreateSubItemJobs(rootModel,options);
+	var sequence = jQuery.Deferred.Sequence( remote_jobs );
 	return sequence.reduce(function( fn ) {
 		//console.log("REDUCE");
 		//return fn();
-		return jQuery.when(fn());
+		return jQuery.when(fn(context));
 	});
 };
 
@@ -623,16 +630,6 @@ FieldModelAccessor.prototype.remoteCreateSubItemJobs = function(rootModel,option
 		}
 	}
 
-//	var promises = [];
-//	var ot;
-//	while(ot = obj_types.pop()){
-//		var root = this.getFieldModel(ot.link());
-//		//promises.push(this._remoteCreateSubItem(root,options));
-//		//alert("#1");
-//	}
-
-	//return jQuery.when.apply(jQuery, promises);
-
 	var self = this;
 	var createJob = function(ot){
 		return function(){
@@ -646,71 +643,8 @@ FieldModelAccessor.prototype.remoteCreateSubItemJobs = function(rootModel,option
 		jobs.push(createJob(ot));
 	}
 	return jobs;
-//	sequence = jQuery.Deferred.Sequence( jobs );
-//	return sequence.reduce(function( fn ) {
-//		console.log("REDUCE");
-//		//return fn();
-//		return jQuery.when(fn());
-//	});
 
 
-//	sequence = jQuery.Deferred.Sequence( promises );
-//	return sequence.reduce(function( func ) {
-//		console.log("REDUCE",func);
-//		return jQuery.when(func);
-//	});
-
-
-
-
-
-//	var ot;
-//	while(ot = obj_types.pop()){
-//		var root = this.getFieldModel(ot.link());
-//		options['async']= false;
-//		this._remoteCreateSubItem(root,options);
-//	}
-
-//	var old_successHandler = null;
-//	if (options.successHandler){
-//		old_successHandler =  options.successHandler;
-//	}
-//
-//	var rc= 0;
-//	var self =this;
-//	if (ot = obj_types.pop()){
-//		var createOptions = function(){
-//			var opts = jQuery.extend({},options,{
-//				successHandler:function(data,  textStatus, jqXHR){
-//					rc+=1;
-//					if (ot = obj_types.pop()){
-//						//console.log("#ot2",ot);
-//						if (rm = self.getFieldModel(ot.link())){
-//							self._remoteCreateSubItem(rm,createOptions());
-//						}
-//					} else {
-//						if (old_successHandler){
-//							old_successHandler(data,  textStatus, jqXHR);
-//						}
-//					}
-//				}
-//			});
-//			return opts;
-//		}
-//
-//		//console.log("#ot1",ot);
-//		if (rm = this.getFieldModel(ot.link())){
-//			return this._remoteCreateSubItem(rm,createOptions());
-//		} else {
-//			if (old_successHandler){
-//				old_successHandler();
-//			}
-//		}
-//	} else {
-//		if (old_successHandler){
-//			old_successHandler();
-//		}
-//	}
 
 }
 
@@ -719,7 +653,7 @@ FieldModelAccessor.prototype._remoteCreateSubItem = function(rootModel,options){
 	if (!rootModel || rootModel == null){
 		throw('createSubItem: empty rootModel');//operation aborted
 	}
-	//console.log('_remoteCreateSubItem',rootModel);
+
 	var self = this;
 	var root = rootModel;
 	var root_id = root.id();
@@ -785,51 +719,347 @@ FieldModelAccessor.prototype._remoteCreateSubItem = function(rootModel,options){
 		}
 	}
 
-
-	//console.log("create_subitem",data);
-	//for (i in data) { var m = data[i]; console.log("#c",m.id(),m.link(),m.key(),m.value());}
-	//
-	var url = '/ws/prepo/create_subitem';
-	var form = jQuery('<form>');
-	FormUtil.addModelsToForm(form, data);
-	return jQuery.ajax({
-		 type: 'POST',
-	   url: url ,
-	   data:form.serialize(),
-	   dataType:'json',
-	  // 'async' : options['async'],
-	   error:function(jqXHR, textStatus, errorThrown) {
-	   	 self.unblockUI();
-	  	 console.log("SUBITEM ERROR",textStatus);
-	  	 if(errorHandler) {
-	  		 errorHandler(jqXHR, textStatus, errorThrown);
-	  	 } else {
-	  		 alert("ERROR SUBITEM NOT CREATED: " + textStatus);
-	  	 }
-	   },
-	   success:function(sdata,  textStatus, jqXHR ){
-	  	 //console.log("SUBITEM SUCCESS",textStatus);
-	  	 if (options['set_refitem_to_root']){
-	  		 root.refItem(sdata['item_id']);
-			   if (sdata['ot']) {
-			   	 root.put('ot', sdata['ot']);
-			   }
-	  		 //console.log("SET REF ITEM",sdata['item_id'],root.id(),root.key(),root.value(),root.refItem());
-	  		 self.removeModels(data);
-	  	 }
-
-	  	 if(successHandler){
-	  		 successHandler(sdata,  textStatus, jqXHR);
-	  	 }
-	  	 //console.log("REP",data);
-	   },
-	 });
+	//console.log(">>>>>>>",options);
+	var sucessFn = null;
+	if (options['set_refitem_to_root']) {
+		sucessFn = function(sdata, textStatus, jqXHR) {
+			root.refItem(sdata['item_id']);
+			if (sdata['ot']) {
+				root.put('ot', sdata['ot']);
+			}
+			//console.log("SET REF ITEM",sdata['item_id'],root.id(),root.key(),root.value(),root.refItem());
+			self.removeModels(data);
+		}
+	}
 
 
-
-
+	return this._remoteCreateItem(data,options,sucessFn);
 
 };
+
+FieldModelAccessor.prototype.remoteCreateItem = function(options){
+	//console.log("remoteCreateItem");
+	return this._remoteCreateItem(this.ndata,options);
+}
+
+FieldModelAccessor.prototype._remoteCreateItem = function(data,options,sucessFn){
+	var form = jQuery('<form>');
+	FormUtil.addModelsToForm(form, data);
+	return this._formRemoteCreateItem(form,options,sucessFn);
+}
+
+FieldModelAccessor.prototype._formRemoteCreateItem = function(form,options,sucessFn){
+	//console.log('_formRemoteCreateItem');
+	if (! options){
+		options = {};
+	}
+	var url = '/ws/prepo/create_subitem';
+	if (options['createSubItemUrl']){
+		url = options['createSubItemUrl'];
+	}
+
+	var self = this;
+	var successHandler = options['successHandler'];
+	var errorHandler = options['errorHandler'];
+
+	 // console.log(">FORM DATA:");
+	 // console.log(form.serialize());
+	 // console.log("<FORM DATA");
+
+	ajaxOpts = {
+		type: 'POST',
+		url: url ,
+		data:form.serialize(),
+		dataType:'json',
+		// 'async' : options['async'],
+		error:function(jqXHR, textStatus, errorThrown) {
+			console.log("SUBITEM ERROR: ",textStatus, errorThrown);
+			if(errorHandler) {
+				errorHandler(jqXHR, textStatus, errorThrown);
+			} else if (self.defaultNetErrorHandler){
+				self.defaultNetErrorHandler(jqXHR, textStatus, errorThrown);
+			} else {
+				alert("ERROR ITEM NOT CREATED: " + textStatus);
+			}
+		},
+		success:function(sdata,  textStatus, jqXHR ) {
+			//console.log("##SUBITEM SUCCESS#: ",options['idx']);
+			//console.log(JSON.stringify(sdata));
+			if (sucessFn){
+				//console.log("##SUCESSFN");
+				sucessFn(sdata, textStatus, jqXHR);
+			}
+			if (successHandler) {
+				//console.log("##SUCESSHANDLER");
+				successHandler(sdata, textStatus, jqXHR);
+			}
+			return sdata;
+		}
+	};
+
+	if (options['headers']){
+		ajaxOpts['headers'] = options['headers'];
+	}
+
+
+	return jQuery.ajax(ajaxOpts);
+
+}
+
+
+
+/**
+ *
+ * @returns {MessageContext}
+ */
+FieldModelAccessor.prototype.validateSubitems = function(rootModel,messageContext) {
+	var self = this;
+	var msgContext = messageContext ? messageContext : this.msgContext;
+	//console.log("####SUBITEM####: ", rootModel);
+	var subItemRoots = this.subItemRootModels(rootModel);
+	for (var i in subItemRoots){
+		var rm = subItemRoots[i];
+		var rmkey = rm.key();
+		//console.log("#1 ",rmkey);
+		//if (rmkey == 'ea:manifestation:tmp' || rmkey =='ea:expression:tmp' || rmkey == 'ea:subj:'){
+		if (rmkey == 'ea:manifestation:tmp' || rmkey =='ea:expression:tmp'  || rmkey == 'ea:subj:' ){
+			//console.log("#SKIP ",rmkey);
+			continue;
+		}
+		//console.log("@@@@@@@@@@@@@@@@@@: ", rm.id(),rm.key(),rm.value());
+		if (jQuery.trim(rm.value())) {
+			var path = '';
+			if (rm.link()) {
+				var pm = self.getFieldModel(rm.link());
+				if (pm) {
+					if (pm.link()) {
+						path += '../ ';
+					}
+					path += pm.value();
+					path += ' / ';
+				}
+			}
+			path += rm.value();
+			//console.log('ERROR SUBITEM:',rm.id(),rm.key(),rm.value(),rm);
+			msgContext.addError('UNCONNECTED OBJECT: ' + path);
+		}
+	}
+	return msgContext;
+}
+
+/**
+ * validate (iparxei 3exoristi generate)
+ */
+FieldModelAccessor.prototype.validate = function() {
+	var msgContext = this.msgContext;
+	var self = this;
+	//console.log("VALIDATE");
+	var title_model = this.getFirstFieldModel('dc:title:');
+	if (title_model == null) {
+		//    msgContext.addError("Missing Title model");
+		msgContext.addError(messages_labels['missing_title_model']);
+	} else {
+		var title = title_model.value();
+		if (!pl.chk(title)) {
+			//      msgContext.addError("Missing Title");
+			msgContext.addError(messages_labels['missing_title']);
+		}
+	}
+
+
+	this.validateSubitems();
+	//msgContext.addError('DEVEL ERROR');
+
+	//console.log('VALIDATE FUNCTIONS');
+	jQuery.each(self.validate_functions, function(key, fn) {
+		console.log("exec validate_function", key);
+		fn.call(self);
+	});
+
+
+	if (false) {
+		//TODO: na gini pluguble me commands opos to generate ke na mpoun eki oi contributors
+		// var contributors1 = this.getFieldModelsWithKeyPrefix('dc:contributor:','ea:contributor:');
+		// console.log("@1",contributors1);
+		var contributors_keys = Object.keys(contributors_printed);
+		//console.log("@2",contributors_keys);
+		var contributors = [];
+		for (i in contributors_keys) {
+			var ck = contributors_keys[i];
+			var tmps = this.getFieldModelsByKey(ck);
+			contributors = contributors.concat(tmps);
+		}
+		// console.log("@3",contributors);
+		// throw "DEBUG ERROR";
+		for (i in contributors) {
+			var c = contributors[i];
+			var name = c.value();
+			//console.log("@1",i,name,c);
+			if (name != null && !pl.chk(c.refItem())) {
+				//console.log("@2",i,name,c);
+				id = c.id();
+				var ct = this.getFirstFieldModel('ea:contributor-type:', id);
+				var pt = this.getFirstFieldModel('ea:name:_type', id);
+				//console.log("ct",ct.value());
+				// console.log("pt",pt);
+				if (ct == null || !pl.chk(ct.value()) || ct.value() == 'undefined') {
+					//error
+					msgContext.addWarning('please add contributor type to contributor [ ' + name + ' ]');
+				} else if (ct.value() == 'person' && pt.value() == 'surname_first' && name.indexOf(",") === -1) {
+					//error
+					msgContext.addWarning('contributor [ ' + name + "] has type 'Person (Surname fist)' but comma not found");
+				} else if (ct.value() != 'person' && name.indexOf(",") !== -1) {
+					msgContext.addWarning('contributor [ ' + name + "] with comma in name found in different type than 'Person'");
+				}
+			}
+		}
+	}
+
+
+
+	//   msgContext.addWarning('DEBUG');
+
+	// foreach ($this->values as $key => $kvalues) {
+	// foreach ($kvalues as $k => $v) {
+	// $link_id = $v[8];
+	// if (! empty($link_id)){
+	// $parent = $this->getValuebyClientId($link_id);
+	// if ($parent == null){
+	// $record_id = $v[6];
+	// $this->deleteByRecordId($record_id);
+	// }
+	// }
+	// }
+	// }
+
+	if (msgContext.hasMessages()) {
+		return 'messages';
+	}
+
+	return 'valid';
+};
+
+
+
+
+/**
+ * epistrefei ta not connected
+ * @param rootModel
+ * @returns {Array}
+ */
+FieldModelAccessor.prototype.subItemRootModels = function (rootModel) {
+	var self = this;
+	var subitems_keys = this.subitems_keys;
+	var roots = [];
+	var models = (rootModel) ? this.getSubTree(rootModel) : this.getModelsAll();
+	for (var id in models) {
+		var m = models[id];
+		//console.log('CHK1', m.id(), m.key(), m.value(), m.refItem());
+		var key = m.key();
+		//if (inSubitemKeys(key) && jQuery.trim(m.value()) && !m.refItem()) {
+		//if (m.get('create_subitem') && jQuery.trim(m.value()) && !m.refItem()) {
+		//sub-root":true //create_subitem
+		if (m.get('sub-root') && !m.refItem()) {
+			console.log('SUBITEM_ROOT', m.id(), m.key(), m.value(), m.refItem());
+			roots.push(m);
+		}
+	}
+	return roots;
+}
+
+FieldModelAccessor.prototype.addSubItemKey = function(key) {
+	if (jQuery.isPlainObject(key)){
+		for (var k in key){
+			this.subitems_keys[k]=null;
+		}
+	}else if (jQuery.isArray(key)){
+		for (var k in key){
+			this.subitems_keys[key[k]]=null;
+		}
+	} else {
+		this.subitems_keys[key]=null;
+	}
+}
+
+FieldModelAccessor.prototype.subItemRootModelsOLD = function () {
+	//console.log("subItemRootModels");
+	var self = this;
+	var subitems_keys = this.subitems_keys;
+	var roots = [];
+	for (var j in subitems_keys) {
+		var smodels = fc.getFieldModelsByKey(j);
+		//console.log("KEY",j);
+		for (var i in smodels) {
+			//var tmp = {}; //gia ton deftero tropo
+			var rootModel = smodels[i];
+			console.log("M:",j,rootModel.value(),rootModel.link(),rootModel.refItem());
+			var value = jQuery.trim(rootModel.value());
+			if (value) {
+
+				if (!rootModel.refItem()) { //entopizi ola osa  den ine sindedemena
+					//console.log("#RM: ", rootModel.id(), rootModel.key(), rootModel.value());
+					roots.push(rootModel);
+				}
+
+				if (false) {
+					//entopizi mono afta pou exoun childs me object type gia dimiourgia neou komvou
+					self.traverseNode(rootModel, function (node) {
+						//console.log("T:",node.get('level'),node.id(),node.key(),node.value(),node);
+						if (node.key() == 'ea:obj-type:') {
+							var level = node.get('level');
+							if (!tmp[level]) {
+								tmp[level] = [];
+							}
+							tmp[level].push(node);
+							//console.log("@PUSH1: ", node.key(), node.value());
+						}
+					});
+					keys = [];
+					for (k in tmp) {
+						keys.push(k);
+					}
+					keys.sort();
+					for (var ii in keys) {
+						var kk = keys[ii];
+						for (var jj in tmp[kk]) {
+							//console.log("@PUSH2: ", ii,kk,jj);
+							roots.push(self.getFieldModel((tmp[kk][jj]).link()));
+						}
+					}
+				}
+
+			}
+		}
+	}
+	return roots;
+
+}
+
+FieldModelAccessor.prototype._act_addValidateFunction = function(container, options) {
+	var fnKey = options.fnKey;
+	var fn = options.fn;
+
+	this.validate_functions[fnKey] = fn;
+};
+
+/**
+ *
+ * @returns {MessageContext}
+ */
+FieldModelAccessor.prototype.newMessageContext = function() {
+	this.msgContext = new MessageContext();
+	return this.msgContext;
+};
+
+/**
+ *
+ * @returns {MessageContext}
+ */
+FieldModelAccessor.prototype.getMessageContext = function() {
+	return this.msgContext;
+};
+
+
 
 
 FieldModelAccessor.prototype.consoleDump = function(){

@@ -4,6 +4,8 @@ var messages_labels = {
 		'missing_title': 'Missing Title.',
 		'missing_title_model': 'Missing Title model',
 		'temporary_save':'\t \t \t \t \t The entity is stored temporarily...\nIt is available for future processing through the Listing Manager -> Items Lists -> submits.',
+		'close_form': 'The data which havent been previously saved will permanently be lost and will not be recovered!',
+		'comfirm_title':'Are you sure?',
 };
 
 
